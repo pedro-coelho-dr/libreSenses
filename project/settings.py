@@ -109,7 +109,7 @@ DATABASES = {
     #####RENDER
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-        default='postgresql://postgres:postgres@localhost:5432/libresenses',
+        default='postgres://corisco:aG3pM4PuDqxWLt6VjegKDKZvNtY5t2w4@dpg-ckub59eb0mos738jn0q0-a/libresensesdb',
         conn_max_age=600
     )
 }
