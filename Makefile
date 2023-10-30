@@ -1,7 +1,5 @@
 .PHONY: install migrate migrations runserver superuser update
 
-venv:
-	workon venv-libresenses
 
 install:
 	poetry install

@@ -1,0 +1,30 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <div class="row text-center justify-content-center">
+        <div class="col">
+            <h1 class="display-4">{{ film.title }}</h1>
+            <p>Subtitle: {{ film.subtitle }}</p>
+            <p>Year: {{ film.year }}</p>
+            <p>Length: {{ film.length }} minutes</p>
+            <p>Rating: {{ film.rating }}</p>
+            <p>Description: {{ film.description }}</p>
+            <p>URL: <a href="{{ film.url }}">{{ film.url }}</a></p>
+            {% if film.background %}
+                <img src="{{ film.background.url }}" alt="Background Image">
+            {% endif %}
+            {% if film.thumbnail %}
+                <img src="{{ film.thumbnail.url }}" alt="Thumbnail Image">
+            {% endif %}
+            <hr>
+            <h2>Captions</h2>
+            <ul>
+            {% for caption in captions %}
+                <li>{{ caption.text }}</li>
+            {% empty %}
+                <li>No captions</li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

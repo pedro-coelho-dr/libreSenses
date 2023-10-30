@@ -1,0 +1,14 @@
+{% extends "index.html" %}
+
+{% block content %}
+    <div class="row text-center justify-content-center">
+        <div class="col">
+            <h1 class="display-4">Add Caption: {{ film.title }}</h1>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Add Caption</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
