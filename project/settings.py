@@ -107,11 +107,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     } """
     #####RENDER
-    'default': dj_database_url.config(
-        # Feel free to alter this value to suit your needs.
-        default='postgres://corisco:aG3pM4PuDqxWLt6VjegKDKZvNtY5t2w4@dpg-ckub59eb0mos738jn0q0-a/libresensesdb',
-        conn_max_age=600
-    )
+        'default': dj_database_url.parse(
+            os.environ.get('DATABASE_URL'), 
+            conn_max_age=600),
 }
 
 
