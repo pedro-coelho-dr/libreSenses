@@ -10,9 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-#####RENDER
+
 import os
-# import dj_database_url
+#####RENDER
+import dj_database_url
 
 from pathlib import Path
 
@@ -27,25 +28,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 ####REMOVE_FOR_RENDER
-SECRET_KEY = 'django-insecure-9qcz0%m5sv&wd%hp^xzq1&m8xrczbg4q14r86l_*4wk0%#0@oa'
+#SECRET_KEY = 'django-insecure-9qcz0%m5sv&wd%hp^xzq1&m8xrczbg4q14r86l_*4wk0%#0@oa'
 
 #####RENDER
-# SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 
 #####REMOVE_FOR_RENDER
-DEBUG = True
+#DEBUG = True
 ####RENDER
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = 'RENDER' not in os.environ
+DEBUG = 'RENDER' not in os.environ
 
 ALLOWED_HOSTS = []
 
 
 #####RENDER
-#RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-#if RENDER_EXTERNAL_HOSTNAME:
-#    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
@@ -64,7 +65,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     #####RENDER
-    #'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     #
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -101,16 +102,16 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 DATABASES = {
     #####REMOVE_FOR_RENDER
-    'default': {
+    """ 'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    } """
     #####RENDER
-    #'default': dj_database_url.config(
-    #    # Feel free to alter this value to suit your needs.
-    #    default='postgresql://postgres:postgres@localhost:5432/libresenses',
-    #    conn_max_age=600
-    #)
+    'default': dj_database_url.config(
+        # Feel free to alter this value to suit your needs.
+        default='postgresql://postgres:postgres@localhost:5432/libresenses',
+        conn_max_age=600
+    )
 }
 
 
@@ -152,18 +153,18 @@ USE_TZ = True
 # Here, they well be accessible at your-domain.onrender.com/static/...
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+#MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 ####RENDER
-# Following settings only make sense on production and may break development environments.
-#if not DEBUG:
+#Following settings only make sense on production and may break development environments.
+if not DEBUG:
     # Tell Django to copy statics to the `staticfiles` directory
     # in your application directory on Render.
-#    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
     # Turn on WhiteNoise storage backend that takes care of compressing static files
     # and creating unique names for each version so they can safely be cached forever.
-#    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     
 
 # Default primary key field type
