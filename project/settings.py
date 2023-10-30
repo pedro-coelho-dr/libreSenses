@@ -10,12 +10,16 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
+render_settings = False
 
 import os
-#####RENDER
-import dj_database_url
-
+ 
 from pathlib import Path
+
+if render_settings:
+    import dj_database_url
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,27 +30,26 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
+if render_settings:
+    SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
+else:
+    SECRET_KEY = 'django-insecure-9qcz0%m5sv&wd%hp^xzq1&m8xrczbg4q14r86l_*4wk0%#0@oa'
 
-####REMOVE_FOR_RENDER
-#SECRET_KEY = 'django-insecure-9qcz0%m5sv&wd%hp^xzq1&m8xrczbg4q14r86l_*4wk0%#0@oa'
-
-#####RENDER
-SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
-
-
-#####REMOVE_FOR_RENDER
-#DEBUG = True
-####RENDER
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'RENDER' not in os.environ
+if render_settings:
+    DEBUG = 'RENDER' not in os.environ
+else:
+    DEBUG = True
+
+
 
 ALLOWED_HOSTS = []
 
 
-#####RENDER
-RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-if RENDER_EXTERNAL_HOSTNAME:
-    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+if render_settings:
+    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+    if RENDER_EXTERNAL_HOSTNAME:
+        ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
@@ -64,7 +67,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    #####RENDER
+    #RENDER
     'whitenoise.middleware.WhiteNoiseMiddleware',
     #
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -73,7 +76,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
 ]
 
 ROOT_URLCONF = 'project.urls'
@@ -100,22 +102,22 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-""" DATABASES = {
-    #####REMOVE_FOR_RENDER
+
+if render_settings:
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ['DATABASE_URL'],
+            conn_max_age=600
+        )
+    }
+else:
+    DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }        
-} """
-    
-    #####RENDER
-
-DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ['DATABASE_URL'],
-        conn_max_age=600
-    )
 }
+
 
 
 # Password validation
@@ -158,16 +160,16 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 #MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
-####RENDER
+if render_settings:
 #Following settings only make sense on production and may break development environments.
-if not DEBUG:
-    # Tell Django to copy statics to the `staticfiles` directory
-    # in your application directory on Render.
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    if not DEBUG:
+        # Tell Django to copy statics to the `staticfiles` directory
+        # in your application directory on Render.
+        STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-    # Turn on WhiteNoise storage backend that takes care of compressing static files
-    # and creating unique names for each version so they can safely be cached forever.
-    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+        # Turn on WhiteNoise storage backend that takes care of compressing static files
+        # and creating unique names for each version so they can safely be cached forever.
+        STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
     
 
 # Default primary key field type
