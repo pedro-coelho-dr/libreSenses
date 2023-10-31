@@ -3,6 +3,19 @@ Libresenses
 https://libresenses.onrender.com/
 
 ============
+-> O que é?
+
+Setup inicial 
+-> Explicar render
+-> explicar como rodar em modo dev.
+--
+-> Explicar funcionamento do app
+-> wireframe/prototipo
+-> arquitetura/diagrama
+--
+Ferramentas
+Equipe
+
 
 Project setup
 
