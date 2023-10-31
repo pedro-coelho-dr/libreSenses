@@ -158,7 +158,7 @@ USE_TZ = True
 # Here, they well be accessible at your-domain.onrender.com/static/...
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
-#MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
 
 if render_settings:
 #Following settings only make sense on production and may break development environments.
@@ -170,7 +170,7 @@ if render_settings:
         # Turn on WhiteNoise storage backend that takes care of compressing static files
         # and creating unique names for each version so they can safely be cached forever.
         STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-    
+        WHITENOISE_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

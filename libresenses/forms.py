@@ -9,19 +9,23 @@ class FilmForm(forms.ModelForm):
 class CaptionForm(forms.ModelForm):
     class Meta:
         model = Caption
-        fields = ['film', 'file', 'language']
+        fields = ['file', 'language']
+        exclude = ['film']
 
 class AudioDescriptionForm(forms.ModelForm):
     class Meta:
         model = AudioDescription
-        fields = ['film', 'url', 'language', 'isExtended', 'isOnlyAudio']
+        fields = ['url', 'language', 'isExtended', 'isOnlyAudio']
+        exclude = ['film']
 
 class SignLanguageForm(forms.ModelForm):
     class Meta:
         model = SignLanguage
-        fields = ['film', 'url', 'language', 'isHardcoded']
+        fields = ['url', 'language', 'isHardcoded']
+        exclude = ['film']
 
 class MediaAlternativeForm(forms.ModelForm):
     class Meta:
         model = MediaAlternative
-        fields = ['film', 'file', 'language', 'description']
+        fields = ['file', 'language', 'description']
+        exclude = ['film']

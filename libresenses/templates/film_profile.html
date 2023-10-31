@@ -1,30 +1,129 @@
 {% extends "index.html" %}
 
 {% block content %}
-    <div class="row text-center justify-content-center">
-        <div class="col">
-            <h1 class="display-4">{{ film.title }}</h1>
-            <p>Subtitle: {{ film.subtitle }}</p>
-            <p>Year: {{ film.year }}</p>
-            <p>Length: {{ film.length }} minutes</p>
-            <p>Rating: {{ film.rating }}</p>
-            <p>Description: {{ film.description }}</p>
-            <p>URL: <a href="{{ film.url }}">{{ film.url }}</a></p>
-            {% if film.background %}
-                <img src="{{ film.background.url }}" alt="Background Image">
-            {% endif %}
-            {% if film.thumbnail %}
-                <img src="{{ film.thumbnail.url }}" alt="Thumbnail Image">
-            {% endif %}
-            <hr>
-            <h2>Captions</h2>
-            <ul>
-            {% for caption in captions %}
-                <li>{{ caption.text }}</li>
-            {% empty %}
-                <li>No captions</li>
-            {% endfor %}
-            </ul>
-        </div>
+<div class="row text-center justify-content-center">
+    <div class="col">
+        <h1 class="display-4">Film: {{ film.title }}</h1>
+        
+<!-- FILM -->
+        <form method="post" action="{% url 'update_film' film.id %}"> 
+            {% csrf_token %}
+            Title: <input type="text" name="title" value="{{ film.title }}" required><br>
+            Subtitle: <input type="text" name="subtitle" value="{{ film.subtitle }}"><br>
+            Year: <input type="number" name="year" value="{{ film.year }}"><br>
+            Length: <input type="number" name="length" value="{{ film.length }}"><br>
+            Rating: <input type="text" name="rating" value="{{ film.rating }}"><br>
+            Description: <textarea name="description">{{ film.description }}</textarea><br>
+            URL: <input type="url" name="url" value="{{ film.url }}"><br>
+            Background: <input type="file" name="background"><br>
+            Thumbnail: <input type="file" name="thumbnail"><br>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+
+        <hr>
+<!-- CAPTION -->
+        <h2>Captions</h2>
+        {% for caption in captions %}
+            <div>
+                <strong>{{ caption.language }}</strong>: 
+                <a href="{{ caption.file.url }}" download>Download</a>
+                <form method="post" action="{% url 'update_caption' caption.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    Language: <input type="text" name="language" value="{{ caption.language }}">
+                    File: <input type="file" name="file">
+                    <button type="submit" class="btn btn-secondary">Update</button>
+                </form>
+            </div>
+        {% empty %}
+            <p>No captions available</p>
+        {% endfor %}
+
+        <h3>Add New Caption</h3>
+        <form method="post" action="{% url 'add_caption' film.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ caption_form.as_p }}
+            <button type="submit" class="btn btn-primary">Add Caption</button>
+        </form>
+
+        <hr>
+<!-- AUDIO DESCRIPTION -->
+        <h2>Audio Descriptions</h2>
+        {% for audio_description in audio_descriptions %}
+            <div>
+                <strong>{{ audio_description.language }}</strong>:
+                <a href="{{ audio_description.url }}">Link</a>
+                
+                <form method="post" action="{% url 'update_audio_description' audio_description.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    Language: <input type="text" name="language" value="{{ audio_description.language }}">
+                    URL: <input type="url" name="url" value="{{ audio_description.url }}">
+                    <button type="submit" class="btn btn-secondary">Update</button>
+                </form>
+            </div>
+        {% empty %}
+            <p>No audio descriptions available</p>
+        {% endfor %}
+
+        <h3>Add New Audio Description</h3>
+        <form method="post" action="{% url 'add_audio_description' film.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ audio_description_form.as_p }}
+            <button type="submit" class="btn btn-primary">Add Audio Description</button>
+        </form>
+        <hr>
+<!-- SIGN LANGUAGE -->
+        <h2>Sign Languages</h2>
+        {% for sign_language in sign_languages %}
+            <div>
+                <strong>{{ sign_language.language }}</strong>:
+                <a href="{{ sign_language.url }}">Link</a>
+                
+                <form method="post" action="{% url 'update_sign_language' sign_language.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    Language: <input type="text" name="language" value="{{ sign_language.language }}">
+                    URL: <input type="url" name="url" value="{{ sign_language.url }}">
+                    Is Hardcoded: <input type="checkbox" name="isHardcoded" {% if sign_language.isHardcoded %}checked{% endif %}>
+                    <button type="submit" class="btn btn-secondary">Update</button>
+                </form>
+            </div>
+        {% empty %}
+            <p>No sign languages available</p>
+        {% endfor %}
+
+        <h3>Add New Sign Language</h3>
+        <form method="post" action="{% url 'add_sign_language' film.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ sign_language_form.as_p }}
+            <button type="submit" class="btn btn-primary">Add Sign Language</button>
+        </form>
+
+        <hr>
+<!-- MEDIA ALTERNATIVE -->
+        <h2>Media Alternatives</h2>
+        {% for media_alternative in media_alternatives %}
+            <div>
+                <strong>{{ media_alternative.language }}</strong>: 
+                <a href="{{ media_alternative.file.url }}" download>Download</a>
+                Description: {{ media_alternative.description }}
+                
+                <form method="post" action="{% url 'update_media_alternative' media_alternative.id %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    Language: <input type="text" name="language" value="{{ media_alternative.language }}">
+                    File: <input type="file" name="file">
+                    Description: <textarea name="description">{{ media_alternative.description }}</textarea>
+                    <button type="submit" class="btn btn-secondary">Update</button>
+                </form>
+            </div>
+        {% empty %}
+            <p>No media alternatives available</p>
+        {% endfor %}
+
+        <h3>Add New Media Alternative</h3>
+        <form method="post" action="{% url 'add_media_alternative' film.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ media_alternative_form.as_p }}
+            <button type="submit" class="btn btn-primary">Add Media Alternative</button>
+        </form>
     </div>
+</div>
 {% endblock %}

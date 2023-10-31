@@ -1,5 +1,4 @@
 {% load static %}
-<!-- index.html -->
 <!doctype html>
 <html lang="en">
     <head>
@@ -11,13 +10,28 @@
     <body>
         <header class="container mt-4 mb-4">
             <a href="https://sites.google.com/cesar.school/libresenses/home">
-                <img src="{% static "libresenses-nobg.png" %}" alt="Render" class="mw-100">
+                <img src="{% static 'libresenses-nobg.png' %}" alt="Render" class="mw-100">
             </a>
         </header>
         <main class="container">
             {% block content %}
-                <h2>Hello World</h2>
-                <a href="{% url 'add_film' %}" class="btn btn-primary">Submit Film</a>
+            <div class="text-center mb-4">
+                <a href="{% url 'submit_film' %}" class="btn btn-primary">Submit Film</a>
+            </div>
+
+            <!-- FILMS -->
+            <div class="mt-4">
+                <h2>Films</h2>
+                <ul>
+                {% for film in films %}
+                    <li>
+                        <a href="{% url 'film_profile' film.id %}">{{ film.title }}</a>
+                    </li>
+                {% empty %}
+                    <li>No films available.</li>
+                {% endfor %}
+                </ul>
+            </div>
             {% endblock %}
         </main>
     </body>

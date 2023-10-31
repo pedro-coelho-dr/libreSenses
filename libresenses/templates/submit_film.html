@@ -1,16 +1,12 @@
 {% extends "index.html" %}
-
 {% block content %}
     <div class="row text-center justify-content-center">
         <div class="col">
-            <h1 class="display-4">Sumbit Film</h1>
+            <h1 class="display-4">Submit Film</h1>
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ film_form.as_p }}
-                <hr>
-                <h2>Add Caption</h2>
-                {{ caption_form.as_p }}
-                <button type="submit">Submit</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </div>
