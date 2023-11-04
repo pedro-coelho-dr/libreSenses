@@ -35,10 +35,10 @@ else:
     SECRET_KEY = 'django-insecure-9qcz0%m5sv&wd%hp^xzq1&m8xrczbg4q14r86l_*4wk0%#0@oa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if render_settings:
+""" if render_settings:
     DEBUG = 'RENDER' not in os.environ
-else:
-    DEBUG = True
+else: """
+DEBUG = True
 
 
 
