@@ -1,129 +1,135 @@
-{% extends "index.html" %}
+{% extends 'index.html' %}
+{% load static %}
 
 {% block content %}
-<div class="row text-center justify-content-center">
-    <div class="col">
-        <h1 class="display-4">Film: {{ film.title }}</h1>
-        
-<!-- FILM -->
-        <form method="post" action="{% url 'update_film' film.id %}"> 
+    <h1>{{ film.title }}</h1>
+    <p><strong>Subtítulo:</strong> {{ film.subtitle }}</p>
+    <p><strong>Ano:</strong> {{ film.year }}</p>
+    <p><strong>Duração:</strong> {{ film.length }} minutos</p>
+    <p><strong>Classificação:</strong> {{ film.rating }}</p>
+    <p><strong>Descrição:</strong> {{ film.description }}</p>
+    <p><strong>URL:</strong> <a href="{{ film.url }}" target="_blank">{{ film.url }}</a></p>
+    {% if film.thumbnail %}
+        <p><strong>Thumbnail:</strong> <img src="{{ film.thumbnail.url }}" alt="Thumbnail" style="width:10%;"></p>
+    {% endif %}
+    {% if film.background %}
+        <p><strong>Background:</strong> <img src="{{ film.background.url }}" alt="Background" style="width:10%;"></p>
+    {% endif %}
+    <p><strong>Permalink:</strong> {{ film.permalink }}</p>
+    <p><strong>Criado em:</strong> {{ film.created_at|date:"d/m/Y H:i" }}</p>
+    <p><strong>Atualizado em:</strong> {{ film.updated_at|date:"d/m/Y H:i" }}</p>
+
+    <div class="actions">
+        <button class="btn btn-primary" onclick="toggleForm('edit-film-form')">Editar Filme</button>
+        <div id="edit-film-form" style="display:none;">
+            <form action="{% url 'update_film' film.id %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ film_form.as_p }}
+                <button type="submit" class="btn btn-primary">Update Film</button>
+            </form>
+        </div>
+        <form action="{% url 'delete_entry' model_name='film' entry_id=film.id %}" method="post" style="display: inline;">
             {% csrf_token %}
-            Title: <input type="text" name="title" value="{{ film.title }}" required><br>
-            Subtitle: <input type="text" name="subtitle" value="{{ film.subtitle }}"><br>
-            Year: <input type="number" name="year" value="{{ film.year }}"><br>
-            Length: <input type="number" name="length" value="{{ film.length }}"><br>
-            Rating: <input type="text" name="rating" value="{{ film.rating }}"><br>
-            Description: <textarea name="description">{{ film.description }}</textarea><br>
-            URL: <input type="url" name="url" value="{{ film.url }}"><br>
-            Background: <input type="file" name="background"><br>
-            Thumbnail: <input type="file" name="thumbnail"><br>
-            <button type="submit" class="btn btn-primary">Update</button>
+            <button type="button" onclick="confirmDelete(this.form)" class="btn btn-danger" style="color: red;">Remover Filme</button>
         </form>
+    </div>
 
-        <hr>
-<!-- CAPTION -->
-        <h2>Captions</h2>
-        {% for caption in captions %}
-            <div>
-                <strong>{{ caption.language }}</strong>: 
-                <a href="{{ caption.file.url }}" download>Download</a>
-                <form method="post" action="{% url 'update_caption' caption.id %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    Language: <input type="text" name="language" value="{{ caption.language }}">
-                    File: <input type="file" name="file">
-                    <button type="submit" class="btn btn-secondary">Update</button>
-                </form>
-            </div>
-        {% empty %}
-            <p>No captions available</p>
-        {% endfor %}
-
-        <h3>Add New Caption</h3>
-        <form method="post" action="{% url 'add_caption' film.id %}" enctype="multipart/form-data">
+    <hr>
+    <!-- Legendas -->
+    <h2>Legendas</h2>
+    {% for caption in film.captions.all %}
+        <form action="{% url 'delete_entry' model_name='caption' entry_id=caption.id %}" method="post">
+            {% csrf_token %}
+            <p>{{ caption.language }}: <a href="{{ caption.file.url }}">{{ caption.file_name }}</a></p>
+            <button type="button" onclick="confirmDelete(this.form)" class="btn btn-danger" style="color: red;">Remover Legenda</button>
+        </form>
+    {% empty %}
+        <p>Nenhuma legenda disponível.</p>
+    {% endfor %}
+    <button class="btn btn-primary" onclick="toggleForm('add-caption-form')">Adicionar Legenda</button>
+    <div id="add-caption-form" style="display:none;">
+        <form action="{% url 'add_caption' film.id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ caption_form.as_p }}
             <button type="submit" class="btn btn-primary">Add Caption</button>
         </form>
+    </div>
 
-        <hr>
-<!-- AUDIO DESCRIPTION -->
-        <h2>Audio Descriptions</h2>
-        {% for audio_description in audio_descriptions %}
-            <div>
-                <strong>{{ audio_description.language }}</strong>:
-                <a href="{{ audio_description.url }}">Link</a>
-                
-                <form method="post" action="{% url 'update_audio_description' audio_description.id %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    Language: <input type="text" name="language" value="{{ audio_description.language }}">
-                    URL: <input type="url" name="url" value="{{ audio_description.url }}">
-                    <button type="submit" class="btn btn-secondary">Update</button>
-                </form>
-            </div>
-        {% empty %}
-            <p>No audio descriptions available</p>
-        {% endfor %}
-
-        <h3>Add New Audio Description</h3>
-        <form method="post" action="{% url 'add_audio_description' film.id %}" enctype="multipart/form-data">
+    <!-- Audiodescrição -->
+    <h2>Audiodescrição</h2>
+    {% for audio_description in film.audio_descriptions.all %}
+        <form action="{% url 'delete_entry' model_name='audio_description' entry_id=audio_description.id %}" method="post">
+            {% csrf_token %}
+            <p>{{ audio_description.language }}: <a href="{{ audio_description.file.url }}">{{ audio_description.file_name }}</a></p>
+            <button type="button" onclick="confirmDelete(this.form)" class="btn btn-danger" style="color: red;">Remover Descrição de Áudio</button>
+        </form>
+    {% empty %}
+        <p>Nenhuma audiodescrição disponível.</p>
+    {% endfor %}
+    <button class="btn btn-primary" onclick="toggleForm('add-audio-description-form')">Adicionar Audiodescrição</button>
+    <div id="add-audio-description-form" style="display:none;">
+        <form action="{% url 'add_audio_description' film.id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ audio_description_form.as_p }}
             <button type="submit" class="btn btn-primary">Add Audio Description</button>
         </form>
-        <hr>
-<!-- SIGN LANGUAGE -->
-        <h2>Sign Languages</h2>
-        {% for sign_language in sign_languages %}
-            <div>
-                <strong>{{ sign_language.language }}</strong>:
-                <a href="{{ sign_language.url }}">Link</a>
-                
-                <form method="post" action="{% url 'update_sign_language' sign_language.id %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    Language: <input type="text" name="language" value="{{ sign_language.language }}">
-                    URL: <input type="url" name="url" value="{{ sign_language.url }}">
-                    Is Hardcoded: <input type="checkbox" name="isHardcoded" {% if sign_language.isHardcoded %}checked{% endif %}>
-                    <button type="submit" class="btn btn-secondary">Update</button>
-                </form>
-            </div>
-        {% empty %}
-            <p>No sign languages available</p>
-        {% endfor %}
+    </div>
 
-        <h3>Add New Sign Language</h3>
-        <form method="post" action="{% url 'add_sign_language' film.id %}" enctype="multipart/form-data">
+
+    <!-- Línguas de Sinais -->
+    <h2>Línguas de Sinais</h2>
+    {% for sign_language in film.sign_languages.all %}
+        <form action="{% url 'delete_entry' model_name='sign_language' entry_id=sign_language.id %}" method="post">
+            {% csrf_token %}
+            <p>{{ sign_language.language }}: <a href="{{ sign_language.file.url }}">{{ sign_language.file_name }}</a></p>
+            <button type="button" onclick="confirmDelete(this.form)" class="btn btn-danger" style="color: red;">Remover Vídeo de Língua de Sinais</button>
+        </form>
+    {% empty %}
+        <p>Nenhuma língua de sinais disponível.</p>
+    {% endfor %}
+    <button class="btn btn-primary" onclick="toggleForm('add-sign-language-form')">Adicionar Língua de Sinais</button>
+    <div id="add-sign-language-form" style="display:none;">
+        <form action="{% url 'add_sign_language' film.id %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ sign_language_form.as_p }}
-            <button type="submit" class="btn btn-primary">Add Sign Language</button>
-        </form>
-
-        <hr>
-<!-- MEDIA ALTERNATIVE -->
-        <h2>Media Alternatives</h2>
-        {% for media_alternative in media_alternatives %}
-            <div>
-                <strong>{{ media_alternative.language }}</strong>: 
-                <a href="{{ media_alternative.file.url }}" download>Download</a>
-                Description: {{ media_alternative.description }}
-                
-                <form method="post" action="{% url 'update_media_alternative' media_alternative.id %}" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    Language: <input type="text" name="language" value="{{ media_alternative.language }}">
-                    File: <input type="file" name="file">
-                    Description: <textarea name="description">{{ media_alternative.description }}</textarea>
-                    <button type="submit" class="btn btn-secondary">Update</button>
-                </form>
-            </div>
-        {% empty %}
-            <p>No media alternatives available</p>
-        {% endfor %}
-
-        <h3>Add New Media Alternative</h3>
-        <form method="post" action="{% url 'add_media_alternative' film.id %}" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ media_alternative_form.as_p }}
-            <button type="submit" class="btn btn-primary">Add Media Alternative</button>
+            <button type="submit" class="btn btn-primary">Adicionar Vídeo de Língua de Sinais</button>
         </form>
     </div>
-</div>
+
+    <!-- Mídia Alternativa -->
+    <h2>Mídias Alternativas</h2>
+    {% for media_alternative in film.media_alternatives.all %}
+        <form action="{% url 'delete_entry' model_name='media_alternative' entry_id=media_alternative.id %}" method="post">
+            {% csrf_token %}
+            <p>{{ media_alternative.language }}: <a href="{{ media_alternative.file.url }}">{{ media_alternative.file_name }}</a></p>
+            <button type="button" onclick="confirmDelete(this.form)" class="btn btn-danger" style="color: red;">Remover Alternativa de Mídia</button>
+        </form>
+    {% empty %}
+        <p>Nenhuma mídia alternativa disponível.</p>
+    {% endfor %}
+    <button class="btn btn-primary" onclick="toggleForm('add-media-alternative-form')">Adicionar Mídia Alternativa</button>
+    <div id="add-media-alternative-form" style="display:none;">
+        <form action="{% url 'add_media_alternative' film.id %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ media_alternative_form.as_p }}
+            <button type="submit" class="btn btn-primary">Adicionar Alternativa de Mídia</button>
+        </form>
+    </div>
+
+    <script>
+        function confirmDelete(formElement) {
+            if (confirm("Tem certeza que deseja remover este item?")) {
+                formElement.submit();
+            }
+        }
+        function toggleForm(formId) {
+            var form = document.getElementById(formId);
+            if (form.style.display === "none") {
+                form.style.display = "block";
+            } else {
+                form.style.display = "none";
+            }
+        }
+    </script>
+
 {% endblock %}

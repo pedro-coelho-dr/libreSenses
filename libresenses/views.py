@@ -1,6 +1,7 @@
 from django.views import View
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
+from django.contrib import messages
 from .models import Film, Caption, AudioDescription, SignLanguage, MediaAlternative
 from .forms import (
     FilmForm, CaptionForm, AudioDescriptionForm, 
@@ -84,24 +85,6 @@ class AddCaption(View):
             return redirect('film_profile', film_id=film_id)
         return redirect('film_profile', film_id=film_id)
 
-# Update Caption View
-class UpdateCaption(View):
-    def get(self, request, caption_id):
-        caption = get_object_or_404(Caption, pk=caption_id)
-        film = caption.film
-        form = CaptionForm(instance=caption)
-        context = {'caption_form': form, 'film': film, 'edit_mode': True}
-        return render(request, 'film_profile.html', context)
-
-    def post(self, request, caption_id):
-        caption = get_object_or_404(Caption, pk=caption_id)
-        film = caption.film
-        form = CaptionForm(request.POST, request.FILES, instance=caption)
-        if form.is_valid():
-            form.save()
-            return redirect('film_profile', film_id=film.id)
-        context = {'caption_form': form, 'film': film, 'edit_mode': True}
-        return render(request, 'film_profile.html', context)
 
 # Audio Description Views
 class AddAudioDescription(View):
@@ -115,23 +98,6 @@ class AddAudioDescription(View):
             return redirect('film_profile', film_id=film_id)
         return redirect('film_profile', film_id=film_id)
 
-class UpdateAudioDescription(View):
-    def get(self, request, audio_description_id):
-        audio_description = get_object_or_404(AudioDescription, pk=audio_description_id)
-        film = audio_description.film
-        form = AudioDescriptionForm(instance=audio_description)
-        context = {'audio_description_form': form, 'film': film, 'edit_mode': True}
-        return render(request, 'film_profile.html', context)
-
-    def post(self, request, audio_description_id):
-        audio_description = get_object_or_404(AudioDescription, pk=audio_description_id)
-        film = audio_description.film
-        form = AudioDescriptionForm(request.POST, request.FILES, instance=audio_description)
-        if form.is_valid():
-            form.save()
-            return redirect('film_profile', film_id=film.id)
-        context = {'audio_description_form': form, 'film': film, 'edit_mode': True}
-        return render(request, 'film_profile.html', context)
 
 # Sign Language Views
 class AddSignLanguage(View):
@@ -145,24 +111,6 @@ class AddSignLanguage(View):
             return redirect('film_profile', film_id=film_id)
         return redirect('film_profile', film_id=film_id)
 
-class UpdateSignLanguage(View):
-    def get(self, request, sign_language_id):
-        sign_language = get_object_or_404(SignLanguage, pk=sign_language_id)
-        film = sign_language.film
-        form = SignLanguageForm(instance=sign_language)
-        context = {'sign_language_form': form, 'film': film, 'edit_mode': True}
-        return render(request, 'film_profile.html', context)
-
-    def post(self, request, sign_language_id):
-        sign_language = get_object_or_404(SignLanguage, pk=sign_language_id)
-        film = sign_language.film
-        form = SignLanguageForm(request.POST, request.FILES, instance=sign_language)
-        if form.is_valid():
-            form.save()
-            return redirect('film_profile', film_id=film.id)
-        context = {'sign_language_form': form, 'film': film, 'edit_mode': True}
-        return render(request, 'film_profile.html', context)
-
 # Media Alternative Views
 class AddMediaAlternative(View):
     def post(self, request, film_id):
@@ -175,20 +123,27 @@ class AddMediaAlternative(View):
             return redirect('film_profile', film_id=film_id)
         return redirect('film_profile', film_id=film_id)
 
-class UpdateMediaAlternative(View):
-    def get(self, request, media_alternative_id):
-        media_alternative = get_object_or_404(MediaAlternative, pk=media_alternative_id)
-        film = media_alternative.film
-        form = MediaAlternativeForm(instance=media_alternative)
-        context = {'media_alternative_form': form, 'film': film, 'edit_mode': True}
-        return render(request, 'film_profile.html', context)
 
-    def post(self, request, media_alternative_id):
-        media_alternative = get_object_or_404(MediaAlternative, pk=media_alternative_id)
-        film = media_alternative.film
-        form = MediaAlternativeForm(request.POST, request.FILES, instance=media_alternative)
-        if form.is_valid():
-            form.save()
-            return redirect('film_profile', film_id=film.id)
-        context = {'media_alternative_form': form, 'film': film, 'edit_mode': True}
-        return render(request, 'film_profile.html', context)
+class DeleteEntry(View):
+    def post(self, request, model_name, entry_id):
+        model = {
+            'caption': Caption,
+            'audio_description': AudioDescription,
+            'sign_language': SignLanguage,
+            'media_alternative': MediaAlternative,
+            'film': Film,
+        }.get(model_name.lower())
+
+        if not model:
+            messages.error(request, "Invalid model name for deletion.")
+            return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+        entry = get_object_or_404(model, pk=entry_id)
+        film_id = entry.film.id if hasattr(entry, 'film') else None
+        entry.delete()
+
+        messages.success(request, f'{model_name.replace("_", " ").capitalize()} deleted successfully.')
+        if film_id:
+            return redirect('film_profile', film_id=film_id)
+        else:
+            return redirect('index')

@@ -8,8 +8,11 @@ https://libresenses.onrender.com/
 Setup inicial 
 -> Explicar render
 -> explicar como rodar em modo dev.
---
+->
 -> Explicar funcionamento do app
+-> models e forms / + validações
+-> views CBV
+-> Templates
 -> wireframe/prototipo
 -> arquitetura/diagrama
 --

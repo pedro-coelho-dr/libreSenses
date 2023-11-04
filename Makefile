@@ -1,4 +1,4 @@
-.PHONY: install migrate migrations runserver superuser update
+.PHONY: install migrate migrations migrations-init run superuser update
 
 
 install:
@@ -10,7 +10,10 @@ migrate:
 migrations:
 	poetry run python manage.py makemigrations
 
-runserver:
+migrations-init:
+	poetry run python manage.py makemigrations libresenses
+
+run:
 	poetry run python manage.py runserver
 
 superuser:
