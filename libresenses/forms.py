@@ -1,7 +1,6 @@
 import os
 from django import forms
 from .models import Film, Caption, AudioDescription, SignLanguage, MediaAlternative
-from django.core.validators import MinValueValidator, MaxValueValidator
 from django.utils import timezone
 from django.utils.text import slugify
 
@@ -14,7 +13,30 @@ class FilmForm(forms.ModelForm):
             'description', 'url', 'background', 'thumbnail', 
             'permalink'
         ]
+    
+    @staticmethod
+    def validate_image_file_size(value):
+        max_size_mb = 2
+        if value.size > max_size_mb * 1024 * 1024:
+            raise forms.ValidationError(f"O tamanho máximo do arquivo que pode ser carregado é de {max_size_mb} MB")
 
+    def clean_background(self):
+        background = self.cleaned_data.get('background', False)
+        if background:
+            self.validate_image_file_size(background)
+            if not background.name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')):
+                raise forms.ValidationError("Formato de arquivo não suportado. Por favor, carregue uma imagem nos formatos JPG, JPEG, PNG, GIF ou BMP.")
+        return background
+
+    def clean_thumbnail(self):
+        thumbnail = self.cleaned_data.get('thumbnail', False)
+        if thumbnail:
+            self.validate_image_file_size(thumbnail)
+            if not thumbnail.name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')):
+                raise forms.ValidationError("Formato de arquivo não suportado. Por favor, carregue uma imagem nos formatos JPG, JPEG, PNG, GIF ou BMP.")
+        return thumbnail
+    
+    
     def clean_title(self):
         title = self.cleaned_data['title'].strip()
         if not title:

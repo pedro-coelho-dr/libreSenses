@@ -24,14 +24,16 @@ class FilmProfile(View):
         audio_descriptions = film.audio_descriptions.all()
         sign_languages = film.sign_languages.all()
         media_alternatives = film.media_alternatives.all()
-
+        
+        film_form = FilmForm(instance=film)
         caption_form = CaptionForm(initial={'film': film})
         audio_description_form = AudioDescriptionForm(initial={'film': film})
         sign_language_form = SignLanguageForm(initial={'film': film})
         media_alternative_form = MediaAlternativeForm(initial={'film': film})
 
         context = {
-            'film': film, 
+            'film': film,
+            'film_form': film_form, 
             'captions': captions, 
             'audio_descriptions': audio_descriptions,
             'sign_languages': sign_languages,
