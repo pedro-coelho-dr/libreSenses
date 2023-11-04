@@ -16,8 +16,7 @@ import os
  
 from pathlib import Path
 
-if render_settings:
-    import dj_database_url
+import dj_database_url
 
 
 
