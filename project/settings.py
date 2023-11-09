@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-render_settings = True
+render_settings = False
 
 import os
  
@@ -35,10 +35,10 @@ else:
     SECRET_KEY = 'django-insecure-9qcz0%m5sv&wd%hp^xzq1&m8xrczbg4q14r86l_*4wk0%#0@oa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-""" if render_settings:
+if render_settings:
     DEBUG = 'RENDER' not in os.environ
-else: """
-DEBUG = True
+else:
+    DEBUG = True
 
 
 
@@ -169,7 +169,6 @@ if render_settings:
         # Turn on WhiteNoise storage backend that takes care of compressing static files
         # and creating unique names for each version so they can safely be cached forever.
         STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-        WHITENOISE_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
