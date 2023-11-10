@@ -1,4 +1,4 @@
-.PHONY: install migrate migrations migrations-init run superuser update
+.PHONY: install migrate migrations migrations-init run superuser update docker
 
 
 install:
@@ -18,5 +18,8 @@ run:
 
 superuser:
 	poetry run python manage.py createsuperuser
+
+docker:
+	docker build -t libresenses-app .
 
 update: install migrate ;
