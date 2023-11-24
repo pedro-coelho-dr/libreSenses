@@ -1,0 +1,11 @@
+body {
+    background-color: #1d1923;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #ffffff;
+    line-height: 1.42857143;
+}
+
+.libresenses-logo {
+    width: 150px; 
+    height: auto;
+}

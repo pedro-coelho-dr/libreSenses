@@ -10,14 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-render_settings = False
 
 import os
  
 from pathlib import Path
-
-import dj_database_url
-
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -29,26 +25,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-if render_settings:
-    SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
-else:
-    SECRET_KEY = 'django-insecure-9qcz0%m5sv&wd%hp^xzq1&m8xrczbg4q14r86l_*4wk0%#0@oa'
+
+SECRET_KEY = 'django-insecure-9qcz0%m5sv&wd%hp^xzq1&m8xrczbg4q14r86l_*4wk0%#0@oa'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if render_settings:
-    DEBUG = 'RENDER' not in os.environ
-else:
-    DEBUG = True
 
+DEBUG = True
 
 
 ALLOWED_HOSTS = []
-
-
-if render_settings:
-    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-    if RENDER_EXTERNAL_HOSTNAME:
-        ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 
 # Application definition
@@ -61,7 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     #
-    'libresenses.apps.LibresensesConfig'
+    'libresenses.apps.LibresensesConfig',
+    #
+    "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -76,6 +64,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 ROOT_URLCONF = 'project.urls'
 
@@ -102,15 +94,8 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 
-if render_settings:
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ['DATABASE_URL'],
-            conn_max_age=600
-        )
-    }
-else:
-    DATABASES = {
+
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
@@ -156,19 +141,9 @@ USE_TZ = True
 # This setting tells Django at which URL static files are going to be served to the user.
 # Here, they well be accessible at your-domain.onrender.com/static/...
 STATIC_URL = '/static/'
+STATIC_ROOT ='/static/'
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
-
-if render_settings:
-#Following settings only make sense on production and may break development environments.
-    if not DEBUG:
-        # Tell Django to copy statics to the `staticfiles` directory
-        # in your application directory on Render.
-        STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-        # Turn on WhiteNoise storage backend that takes care of compressing static files
-        # and creating unique names for each version so they can safely be cached forever.
-        STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+#MEDIA_ROOT = 'os.path.join(BASE_DIR, '/media/')'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

@@ -1,12 +1,14 @@
 {% extends 'index.html' %}
 
+{% load crispy_forms_tags %}
+
 {% block content %}
 <div class="container">
     <h1>Submit New Film</h1>
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" novalidate>
         {% csrf_token %}
-        {{ film_form.as_p }}
-        <button type="submit" class="btn btn-primary">Submit Film</button>
+        {% crispy film_form %}
+        <button type="submit" class="btn btn-success">Submit film</button>
     </form>
 </div>
 {% endblock %}

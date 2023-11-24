@@ -1,9 +1,11 @@
 asgiref==3.7.2
 Brotli==1.1.0
+crispy-bootstrap5==2023.10
 dj-database-url==2.1.0
 Django==4.2.6
+django-crispy-forms==2.1
 gunicorn==21.2.0
--e git+https://github.com/pedro-coelho-dr/libresenses.git@7ac9becd78080fec84391655545cb51e998ae993#egg=libresenses
+-e git+https://github.com/pedro-coelho-dr/libresenses.git@36b869b1edc160b75e6d1a6b3be5a16a2e173639#egg=libresenses
 packaging==23.2
 Pillow==10.1.0
 psycopg2-binary==2.9.9

@@ -3,32 +3,55 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>libreSenses</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+          rel="stylesheet" 
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" 
+          crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
     </head>
     <body>
-        <header class="container mt-4 mb-4">
-            <a href="https://sites.google.com/cesar.school/libresenses/home">
-                <img src="{% static 'libresenses-nobg.png' %}" alt="Render" class="mw-100", width="200">
-            </a>
-        </header>
+
+        <!-- Navbar -->
+        <nav class="navbar navbar-default">
+            <div class="navbar-header">
+                <a href="/">
+                    <img src="{% static 'img/libresenses-nobg.png' %}" alt="LibreSenses Logo" class="libresenses-logo">
+                </a>
+            </div>
+        </nav>
+    
+
         <main class="container">
             {% block content %}
-            <div class="text-center mb-4">
-                <a href="{% url 'submit_film' %}" class="btn btn-primary">Submit Film</a>
-            </div>
+            <!-- Texto de Introdução -->
+            <div class="introduction-text mt-4 mb-4">
+                <h2>Bem vindo ao LibreSenses.</h2>
+                <p>
+                    Esta página é o ponto de partida do protótipo de nossa solução: uma ferramenta de submisão de conteúdo de conteúdo acessível para o LibreFlix.
+                </p>
+                <p>
+                    O objetivo desta página é facilitar a navegação e a compreensão das funcionalidades da ferramenta.
+                </p>
+                <p>
+                    Aqui, os usuários podem submeter um novo filme utilizando nosso formulário ou acessar filmes já cadastrados para adição de elementos que tornem o conteúdo mais acessível.
+                </p>
+
+                <div class="text-left mb-4">
+                    <a href="{% url 'submit_film' %}">Envie um filme</a>
+                </div>
 
             <!-- FILMS -->
             <div class="mt-4">
-                <h2>Films</h2>
+                <h3>Filmes</h3>
                 <ul>
                 {% for film in films %}
                     <li>
                         <a href="{% url 'film_profile' film.id %}">{{ film.title }}</a>
                     </li>
                 {% empty %}
-                    <li>No films available.</li>
+                    <li>Nenhum filme disponível.</li>
                 {% endfor %}
                 </ul>
             </div>

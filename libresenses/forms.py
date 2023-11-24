@@ -3,6 +3,8 @@ from django import forms
 from .models import Film, Caption, AudioDescription, SignLanguage, MediaAlternative
 from django.utils import timezone
 from django.utils.text import slugify
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 
 class FilmForm(forms.ModelForm):
@@ -59,6 +61,12 @@ class FilmForm(forms.ModelForm):
     def clean_permalink(self):
         permalink = self.cleaned_data['permalink']
         return slugify(permalink, allow_unicode=False)
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Submit film'))
 
 class CaptionForm(forms.ModelForm):
     class Meta:
