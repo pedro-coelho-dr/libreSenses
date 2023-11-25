@@ -1,9 +1,11 @@
 {% extends 'index.html' %}
+{% load static %}
 
 {% load crispy_forms_tags %}
 {% block content %}
-    <h1>Submit New Film</h1>
-    <form method="post" novalidate>
+    <h4>Nova Produção</h4>
+    <br>
+    <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {% crispy film_form %}
     </form>

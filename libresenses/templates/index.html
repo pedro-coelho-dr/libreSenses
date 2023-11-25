@@ -6,35 +6,42 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>LibreSenses</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
-        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     </head>
 
     <body>
         {% include 'navbar.html' %}
-        <main class="container">
-            
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    {% block content %}
-                    <!-- Main Content -->
-                    <h2>Bem vindo ao LibreSenses.</h2>
-                    <p class="lead">
-                        Esta página é o ponto de partida do protótipo de nossa solução: uma ferramenta de submissão de conteúdo acessível para o LibreFlix.
-                    </p>
-                    <p>
-                        O objetivo desta página é facilitar a navegação e a compreensão das funcionalidades da ferramenta.
-                    </p>
-                    <p>
-                        Aqui, os usuários podem submeter um novo filme utilizando nosso formulário ou acessar filmes já cadastrados para adição de elementos que tornem o conteúdo mais acessível.
-                    </p>
-                    <div class="mt-3">
-                        <a href="{% url 'submit_film' %}" class="btn btn-secondary">Envie um filme</a>
-                        <a href="{% url 'film_list' %}" class="btn btn-secondary">Lista de filmes</a>
-                    </div>
-                    {% endblock %}
+        <main class="container main-content">
+            <div class="row justify-content-center text-secondary">
+                <div class="col-lg-8 bg-light rounded-3 shadow p-4"">
+                        {% block content %}
+                        <!-- Main Content -->
+                        <h2>Bem vindo ao LibreSenses.</h2>
+                        <p class="lead">
+                            Esta página é o ponto de partida do protótipo de nossa solução: uma ferramenta de submissão de conteúdo acessível para o LibreFlix.
+                        </p>
+                        <p>
+                            O objetivo desta página é facilitar a navegação e a compreensão das funcionalidades da ferramenta.
+                        </p>
+                        <p>
+                            Aqui, os usuários podem submeter um novo filme utilizando nosso formulário ou acessar filmes já cadastrados para adição de elementos que tornem o conteúdo mais acessível.
+                        </p>
+                        <p>
+                            Obs.: Para fins de facilitar testes, alguns campos do formulário não estão como obrigatórios quando deveriam estar.
+                        </p>
+                        <p>
+                            Obs 2.: Para facilitar teste, os filmes cadastrados ficam disponíveis para todos os usuários
+                        </p>
+                        <p>
+                            Obs 3.: No formúlario de envio de filmes, propor algumas mudanças
+                        </p>
+                        <div class="mt-3">
+                            <a href="{% url 'submit_film' %}" class="btn btn-secondary">Envie um filme</a>
+                            <a href="{% url 'film_list' %}" class="btn btn-secondary">Lista de filmes</a>
+                        </div>
+                        {% endblock %}
                 </div>
             </div>
-            
         </main>
         {% include 'footer.html' %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>

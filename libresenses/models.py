@@ -19,12 +19,12 @@ def get_upload_path(instance, filename):
 #LEMBRAR DE REAVALIAR OS BLANK=TRUE
 class Film(models.Model):
     RATING_CHOICES = (
-        ('Livre', 'Livre (para todos os públicos)'),
-        ('10', '10 anos'),
-        ('12', '12 anos'),
-        ('14', '14 anos'),
-        ('16', '16 anos'),
-        ('18', '18 anos'),
+        ('Livre', 'Livre'),
+        ('10', '10'),
+        ('12', '12'),
+        ('14', '14'),
+        ('16', '16'),
+        ('18', '18'),
     )
     title = models.CharField(max_length=255, db_index=True)
     subtitle = models.CharField(max_length=255, blank=True)
