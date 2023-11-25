@@ -162,7 +162,16 @@ class CaptionForm(forms.ModelForm):
     class Meta:
         model = Caption
         fields = ['caption_file', 'language']
-        exclude = ['film', 'created_at', 'updated_at']
+        
+    def __init__(self, *args, **kwargs):
+        super(CaptionForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            'caption_file',
+            'language',
+            FormActions(Submit('submit', 'Salvar Legenda', css_class='btn btn-dark'))
+            )
         
     def clean_caption_file(self):
         caption_file = self.cleaned_data.get('caption_file')
@@ -177,16 +186,47 @@ class AudioDescriptionForm(forms.ModelForm):
     class Meta:
         model = AudioDescription
         fields = ['audio_url', 'language', 'is_extended', 'is_only_audio']
-        exclude = ['film', 'created_at', 'updated_at']
+    
+    def __init__(self, *args, **kwargs):
+        super(AudioDescriptionForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            'audio_url',
+            'language',
+            'is_extended',
+            'is_only_audio',
+            FormActions(Submit('submit', 'Salvar Descrição Áudio', css_class='btn btn-dark'))
+        )
 
 class SignLanguageForm(forms.ModelForm):
     class Meta:
         model = SignLanguage
         fields = ['sign_language_video_url', 'language', 'is_hardcoded']
-        exclude = ['film', 'created_at', 'updated_at']
+        
+    def __init__(self, *args, **kwargs):
+        super(SignLanguageForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            'sign_language_video_url',
+            'language',
+            'is_hardcoded',
+            FormActions(Submit('submit', 'Salvar Língua de Sinais', css_class='btn btn-dark'))
+        )
 
 class MediaAlternativeForm(forms.ModelForm):
     class Meta:
         model = MediaAlternative
         fields = ['alternative_file', 'language', 'description']
-        exclude = ['film', 'created_at', 'updated_at']
+        
+    def __init__(self, *args, **kwargs):
+        super(MediaAlternativeForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.layout = Layout(
+            'alternative_file',
+            'language',
+            'description',
+            FormActions(Submit('submit', 'Salvar Mídia Alternativa', css_class='btn btn-dark'))
+        )

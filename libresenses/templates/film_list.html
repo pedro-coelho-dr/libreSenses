@@ -1,14 +1,14 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
-        <h2>Filmes</h2>
-        <ul>
-            {% for film in films %}
-                <li>
-                    <a href="{% url 'film_profile' film.id %}">{{ film.title }}</a>
-                </li>
-            {% empty %}
-                <li>Nenhum filme disponível.</li>
-            {% endfor %}
-        </ul>
+    <h2>Filmes</h2>
+    <div class="list-group w-50 ms-0">
+        {% for film in films %}
+            <a href="{% url 'film_profile' film.id %}" class="list-group-item list-group-item-action">
+                {{ film.title }}
+            </a>
+        {% empty %}
+            <div class="list-group-item">Nenhum filme disponível.</div>
+        {% endfor %}
+    </div>
 {% endblock %}
