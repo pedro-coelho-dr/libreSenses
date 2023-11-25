@@ -82,7 +82,6 @@ class FilmForm(forms.ModelForm):
         self.fields['year'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'min': 1850,
-            'max': 2100,
             'placeholder': 'Digite o ano'
         })
         self.fields['length'].widget = forms.NumberInput(attrs={
