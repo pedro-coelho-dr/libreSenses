@@ -7,6 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.Index.as_view(), name='index'),
     path('submit_film/', views.SubmitFilm.as_view(), name='submit_film'),
+    path('film_list/', views.FilmList.as_view(), name='film_list'),
     path('film/<int:film_id>/', views.FilmProfile.as_view(), name='film_profile'),
     path('film/update/<int:film_id>/', views.UpdateFilm.as_view(), name='update_film'),
     path('add_caption/<int:film_id>/', views.AddCaption.as_view(), name='add_caption'),

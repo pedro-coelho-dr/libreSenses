@@ -14,6 +14,12 @@ class Index(View):
         films = Film.objects.all()
         return render(request, 'index.html', {'films': films})
 
+# Film List 
+class FilmList(View):
+    def get(self, request):
+        films = Film.objects.all()
+        return render(request, 'film_list.html', {'films': films})
+
 
 # Film Profile View
 class FilmProfile(View):
