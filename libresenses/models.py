@@ -49,7 +49,7 @@ class Caption(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"{self.film.title} - {self.language.name}"
+        return f"{self.film.title} - {self.language}"
 
 class AudioDescription(models.Model):
     film = models.ForeignKey(Film, related_name='audio_descriptions', on_delete=models.CASCADE)
@@ -62,7 +62,7 @@ class AudioDescription(models.Model):
     def __str__(self):
             audio_type = "Extended" if self.is_extended else "Standard"
             audio_type += " - Audio Only" if self.is_only_audio else " - Video"
-            return f"{self.film.title} - {self.language.name} ({audio_type})"
+            return f"{self.film.title} - {self.language} ({audio_type})"
 
 class SignLanguage(models.Model):
     film = models.ForeignKey(Film, related_name='sign_languages', on_delete=models.CASCADE)
@@ -73,7 +73,7 @@ class SignLanguage(models.Model):
     
     def __str__(self):
             hardcoded_status = "Hardcoded" if self.is_hardcoded else "Separate"
-            return f"{self.film.title} - {self.language.name} ({hardcoded_status})"
+            return f"{self.film.title} - {self.language} ({hardcoded_status})"
 
 
 class MediaAlternative(models.Model):
@@ -84,4 +84,4 @@ class MediaAlternative(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-            return f"{self.film.title} - {self.language.name}"
+            return f"{self.film.title} - {self.language}"

@@ -1,4 +1,4 @@
-.PHONY: install migrate migrations migrations-init run superuser update docker
+.PHONY: install migrate migrations migrations-init run superuser update docker diagram
 
 
 install:
@@ -23,3 +23,7 @@ docker:
 	docker build -t libresenses-app .
 
 update: install migrate ;
+
+diagram: 
+	poetry run python manage.py graph_models libresenses  -e -S --arrow-shape normal  -n  --dot -g -o libresenses_models.dot
+	dot -Tpng libresenses_models.dot -o libresenses_models.png

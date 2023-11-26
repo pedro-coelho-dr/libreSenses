@@ -2,6 +2,5 @@
 
 <form action="{% url 'add_sign_language' film.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ sign_language_form|crispy }}
-    <button type="submit" class="btn btn-primary">Add Sign Language</button>
+    {% crispy sign_language_form %}
 </form>

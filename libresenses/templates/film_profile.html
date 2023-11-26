@@ -2,31 +2,134 @@
 {% load static %}
 {% load crispy_forms_tags %}
 {% block content %}
-
     <!-- FILM PROFILE -->
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                {{ film.title }}
+                <strong>Filme</strong>
             </div>
             <div class="card-body">
-                <p class="card-text"><strong>Subtítulo:</strong> {{ film.subtitle }}</p>
-                <p class="card-text"><strong>Ano:</strong> {{ film.year }}</p>
-                <p class="card-text"><strong>Duração:</strong> {{ film.length }} minutos</p>
-                <p class="card-text"><strong>Classificação:</strong> {{ film.rating }}</p>
-                <p class="card-text"><strong>Descrição:</strong> {{ film.description }}</p>
-                <p class="card-text"><strong>URL:</strong> <a href="{{ film.url }}" target="_blank">{{ film.url }}</a></p>
-                {% if film.thumbnail %}
-                    <img src="{{ film.thumbnail.url }}" alt="Thumbnail" class="img-fluid" style="max-width: 150px;">
-                {% endif %}
-                {% if film.background %}
-                    <img src="{{ film.background.url }}" alt="Background" class="img-fluid mt-3" style="max-width: 150px;">
-                {% endif %}
-                <p class="card-text"><strong>Permalink:</strong> {{ film.permalink }}</p>
-                <p class="card-text"><strong>Criado em:</strong> {{ film.created_at|date:"d/m/Y H:i" }}</p>
-                <p class="card-text"><strong>Atualizado em:</strong> {{ film.updated_at|date:"d/m/Y H:i" }}</p>
+                <div class="row">
+                    <div class="col-12 col-md-12">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><strong>Título:</strong> {{ film.title }}</li>
+                            <li class="list-group-item"><strong>Subtítulo:</strong> {{ film.subtitle }}</li>
+                            <li class="list-group-item"><strong>Ano:</strong> {{ film.year }}</li>
+                            <li class="list-group-item"><strong>Duração:</strong> {{ film.length }} minutos</li>
+                            <li class="list-group-item"><strong>Classificação:</strong> {{ film.rating }}</li>
+                            <li class="list-group-item"><strong>Descrição:</strong> {{ film.description }}</li>
+                            <li class="list-group-item"><strong>URL:</strong> <a href="{{ film.url }}" target="_blank">{{ film.url }}</a></li>
+                            {% if film.background %}
+                                <li class="list-group-item"><strong>Background: </strong><img src="{{ film.background.url }}" alt="Background" class="img-fluid mt-3" style="max-width: 150px;"></li>
+                            {% endif %}
+                            {% if film.thumbnail %}
+                                <li class="list-group-item"><strong>Thumbnail: </strong><img src="{{ film.thumbnail.url }}" alt="Thumbnail" class="img-fluid" style="max-width: 150px;"></li>
+                            {% endif %}
+                            <li class="list-group-item"><strong>Permalink:</strong> {{ film.permalink }}</li>
+                            <li class="list-group-item"><strong>Criado em:</strong> {{ film.created_at|date:"d/m/Y H:i" }}</li>
+                            <li class="list-group-item"><strong>Atualizado em:</strong> {{ film.updated_at|date:"d/m/Y H:i" }}</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
+
+            <!-- CAPTIONS -->
+        {% if captions %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <strong>Legenda</strong>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for caption in captions %}
+                    <li class="list-group-item">
+                        {{ caption.language }} - <a href="{{ caption.caption_file.url }}">download</a>
+                        <a href="#" class="custom-delete-link" onclick="event.preventDefault(); this.nextElementSibling.submit();">
+                            Remover
+                        </a>
+                        <form action="{% url 'delete_entry' 'caption' caption.id %}" method="post" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+        <!-- AUDIO DESCRIPTION -->
+        {% if audio_descriptions %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <strong>Audiodescrição</strong>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for ad in audio_descriptions %}
+                    <li class="list-group-item">
+                        {{ ad.language }} - <a href="{{ ad.audio_url }}">link</a> ({{ ad.get_audio_type_display }})
+                        <a href="#" class="custom-delete-link" onclick="event.preventDefault(); this.nextElementSibling.submit();">
+                            Remover
+                        </a>
+                        <form action="{% url 'delete_entry' 'audio_description' ad.id %}" method="post" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Sign Languages -->
+        {% if sign_languages %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <strong>Língua de Sinais</strong>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for sl in sign_languages %}
+                    <li class="list-group-item">
+                        {{ sl.language }} - <a href="{{ sl.sign_language_video_url }}">link</a>
+                        <a href="#" class="custom-delete-link" onclick="event.preventDefault(); this.nextElementSibling.submit();">
+                            Remover
+                        </a>
+                        <form action="{% url 'delete_entry' 'sign_language' sl.id %}" method="post" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Media Alternatives-->
+        {% if media_alternatives %}
+        <div class="card mt-3">
+            <div class="card-header">
+                <strong>Mídia Alternativa</strong>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    {% for ma in media_alternatives %}
+                    <li class="list-group-item">
+                        {{ ma.language }} - <a href="{{ ma.alternative_file.url }}">download</a>
+                        <a href="#" class="custom-delete-link" onclick="event.preventDefault(); this.nextElementSibling.submit();">
+                            Remover
+                        </a>
+                        <form action="{% url 'delete_entry' 'media_alternative' ma.id %}" method="post" style="display: none;">
+                            {% csrf_token %}
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- TAB -->
         <br>
         <ul class="nav nav-tabs" id="formTabs">
             <li class="nav-item">
@@ -78,5 +181,10 @@
                 {% include 'media_alternative_form.html' %}
             </div>
         </div>
+        <br>
+        <form action="{% url 'delete_entry' 'film' film.id %}" method="post" onsubmit="return confirm('Você tem certeza que deseja remover este filme?');">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Remover Filme</button>
+        </form>
         {% endblock %} 
 

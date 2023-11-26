@@ -3,6 +3,5 @@
 
 <form action="{% url 'add_media_alternative' film.id %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ media_alternative_form|crispy }}
-    <button type="submit" class="btn btn-primary">Add Media Alternative</button>
+    {% crispy media_alternative_form %}
 </form>

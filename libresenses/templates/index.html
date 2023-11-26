@@ -16,28 +16,28 @@
                 <div class="col-lg-8 bg-light rounded-3 shadow p-4"">
                         {% block content %}
                         <!-- Main Content -->
-                        <h2>Bem vindo ao LibreSenses.</h2>
-                        <p class="lead">
-                            Esta página é o ponto de partida do protótipo de nossa solução: uma ferramenta de submissão de conteúdo acessível para o LibreFlix.
-                        </p>
-                        <p>
-                            O objetivo desta página é facilitar a navegação e a compreensão das funcionalidades da ferramenta.
-                        </p>
-                        <p>
-                            Aqui, os usuários podem submeter um novo filme utilizando nosso formulário ou acessar filmes já cadastrados para adição de elementos que tornem o conteúdo mais acessível.
-                        </p>
-                        <p>
-                            Obs.: Para fins de facilitar testes, alguns campos do formulário não estão como obrigatórios quando deveriam estar.
-                        </p>
-                        <p>
-                            Obs 2.: Para facilitar teste, os filmes cadastrados ficam disponíveis para todos os usuários
-                        </p>
-                        <p>
-                            Obs 3.: No formúlario de envio de filmes, propor algumas mudanças
-                        </p>
-                        <div class="mt-3">
-                            <a href="{% url 'submit_film' %}" class="btn btn-secondary">Envie um filme</a>
-                            <a href="{% url 'film_list' %}" class="btn btn-secondary">Lista de filmes</a>
+                        <div class="card shadow">
+                            <div class="card-header">
+                                <h2 class="mb-0">Bem-vindo ao LibreSenses</h2>
+                            </div>
+                            <div class="card-body">
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item">Esta página é o ponto de partida do protótipo de nossa solução: uma ferramenta de submissão de conteúdo acessível para o LibreFlix.</li>
+                                    <li class="list-group-item">O objetivo desta página é facilitar a navegação e a compreensão das funcionalidades da ferramenta.</li>
+                                    <li class="list-group-item">Aqui, os usuários podem submeter um novo filme utilizando nosso formulário ou acessar filmes já cadastrados para adição de elementos que tornem o conteúdo mais acessível.</li>
+                                    <li class="list-group-item">Obs.: Para fins de facilitar testes, alguns campos do formulário não estão como obrigatórios quando deveriam estar.</li>
+                                    <li class="list-group-item">Obs 2.: Para facilitar teste, os filmes cadastrados ficam disponíveis para todos os usuários.</li>
+                                    <li class="list-group-item">Obs 3.: No formulário de envio de filmes, propor algumas mudanças.</li>
+                                </ul>
+                            </div>
+                            <div class="card-footer text-center">
+                                <div class="btn-group" role="group" aria-label="">
+                                    <a href="{% url 'film_list' %}" class="btn-custom-border text-dark btn btn-warning"><strong>Lista de filmes</strong></a>
+                                    <a href="{% url 'submit_film' %}" class="btn-custom-border text-light btn btn-success"><strong>Envie um filme</strong></a>
+                                  </div>
+                {% comment %}                 <a href="{% url 'submit_film' %}" class="btn btn-info"><strong>Envie um filme</strong></a>
+                                <a href="{% url 'film_list' %}" class="btn btn-info"><strong>Lista de filmes</strong></a> {% endcomment %}
+                            </div>
                         </div>
                         {% endblock %}
                 </div>

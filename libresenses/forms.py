@@ -31,8 +31,6 @@ class FilmForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(FilmForm, self).__init__(*args, **kwargs)
-        for field in self.fields:
-            self.fields[field].help_text = ''
         self.fields['rating'].widget = forms.RadioSelect(choices=Film.RATING_CHOICES)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
@@ -162,16 +160,34 @@ class CaptionForm(forms.ModelForm):
     class Meta:
         model = Caption
         fields = ['caption_file', 'language']
-        
+        labels = {
+            'caption_file': 'Arquivo de Legenda',
+            'language': 'Idioma'
+        }
+
     def __init__(self, *args, **kwargs):
         super(CaptionForm, self).__init__(*args, **kwargs)
+        self.fields['caption_file'].widget = forms.FileInput(attrs={
+            'class': 'form-control',
+            'accept': '.srt, .vtt'
+        })
+        self.fields['language'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Digite o idioma'
+        })
+
+        # Initialize FormHelper
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
-            'caption_file',
-            'language',
-            FormActions(Submit('submit', 'Salvar Legenda', css_class='btn btn-dark'))
+            Row(
+                Column('caption_file', css_class='form-group col-md-6 mb-0'),
+                Column('language', css_class='form-group col-md-6 mb-0'),
+            ),
+            FormActions(
+                Submit('submit', 'Salvar Legenda', css_class='btn btn-dark btn-flat')
             )
+        )
         
     def clean_caption_file(self):
         caption_file = self.cleaned_data.get('caption_file')
@@ -186,47 +202,129 @@ class AudioDescriptionForm(forms.ModelForm):
     class Meta:
         model = AudioDescription
         fields = ['audio_url', 'language', 'is_extended', 'is_only_audio']
-    
+        labels = {
+            'audio_url': 'URL do Áudio',
+            'language': 'Idioma',
+            'is_extended': 'É Estendido?',
+            'is_only_audio': 'Apenas Áudio?'
+        }
+
     def __init__(self, *args, **kwargs):
         super(AudioDescriptionForm, self).__init__(*args, **kwargs)
+
+        # Customize your fields here
+        self.fields['audio_url'].widget = forms.URLInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'URL do áudio'
+        })
+        self.fields['language'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Digite o idioma'
+        })
+        self.fields['is_extended'].widget = forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        })
+        self.fields['is_only_audio'].widget = forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        })
+
+        # Initialize FormHelper
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
-            'audio_url',
-            'language',
-            'is_extended',
-            'is_only_audio',
-            FormActions(Submit('submit', 'Salvar Descrição Áudio', css_class='btn btn-dark'))
+            Row(
+                Column('audio_url', css_class='form-group col-md-6 mb-0'),
+                Column('language', css_class='form-group col-md-6 mb-0'),
+            ),
+            Row(
+                Column('is_extended', css_class='form-group col-md-6 mb-0'),
+                Column('is_only_audio', css_class='form-group col-md-6 mb-0'),
+            ),
+            FormActions(
+                Submit('submit', 'Salvar Audiodescrição', css_class='btn btn-dark btn-flat')
+            )
         )
-
 class SignLanguageForm(forms.ModelForm):
     class Meta:
         model = SignLanguage
         fields = ['sign_language_video_url', 'language', 'is_hardcoded']
-        
+        labels = {
+            'sign_language_video_url': 'URL do Vídeo em Língua de Sinais',
+            'language': 'Idioma',
+            'is_hardcoded': 'É Incorporado?'
+        }
+
     def __init__(self, *args, **kwargs):
-        super(SignLanguageForm, self).__init__(*args, **kwargs)
+        super(SignLanguageForm, self).__init__(*args, **kwargs)  # Corrected line
+
+        # Customize your fields here
+        self.fields['sign_language_video_url'].widget = forms.URLInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'URL do vídeo em língua de sinais'
+        })
+        self.fields['language'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Digite o idioma'
+        })
+        self.fields['is_hardcoded'].widget = forms.CheckboxInput(attrs={
+            'class': 'form-check-input'
+        })
+
+        # Initialize FormHelper
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
-            'sign_language_video_url',
-            'language',
-            'is_hardcoded',
-            FormActions(Submit('submit', 'Salvar Língua de Sinais', css_class='btn btn-dark'))
+            Row(
+                Column('sign_language_video_url', css_class='form-group col-md-6 mb-0'),
+                Column('language', css_class='form-group col-md-6 mb-0'),
+            ),
+            Row(
+                Column('is_hardcoded', css_class='form-group col-md-6 mb-0'),
+            ),
+            FormActions(
+                Submit('submit', 'Salvar Língua de Sinais', css_class='btn btn-dark btn-flat')
+            )
         )
 
 class MediaAlternativeForm(forms.ModelForm):
     class Meta:
         model = MediaAlternative
         fields = ['alternative_file', 'language', 'description']
-        
+        labels = {
+            'alternative_file': 'Mídia Alternativo',
+            'language': 'Idioma',
+            'description': 'Descrição'
+        }
+
     def __init__(self, *args, **kwargs):
         super(MediaAlternativeForm, self).__init__(*args, **kwargs)
+
+        # Customize your fields here
+        self.fields['alternative_file'].widget = forms.FileInput(attrs={
+            'class': 'form-control'
+        })
+        self.fields['language'].widget = forms.TextInput(attrs={
+            'class': 'form-control',
+            'placeholder': 'Digite o idioma'
+        })
+        self.fields['description'].widget = forms.Textarea(attrs={
+            'class': 'form-control',
+            'rows': 3,
+            'placeholder': 'Descrição da mídia alternativa'
+        })
+
+        # Initialize FormHelper
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
-            'alternative_file',
-            'language',
-            'description',
-            FormActions(Submit('submit', 'Salvar Mídia Alternativa', css_class='btn btn-dark'))
+            Row(
+                Column('alternative_file', css_class='form-group col-md-6 mb-0'),
+                Column('language', css_class='form-group col-md-6 mb-0'),
+            ),
+            Row(
+                Column('description', css_class='form-group col-md-12 mb-0'),
+            ),
+            FormActions(
+                Submit('submit', 'Salvar Mídia Alternativa', css_class='btn btn-dark btn-flat')
+            )
         )

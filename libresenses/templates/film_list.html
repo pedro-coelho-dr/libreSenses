@@ -1,14 +1,21 @@
 {% extends 'index.html' %}
 {% load static %}
 {% block content %}
-    <h2>Filmes</h2>
-    <div class="list-group w-50 ms-0">
-        {% for film in films %}
-            <a href="{% url 'film_profile' film.id %}" class="list-group-item list-group-item-action">
-                {{ film.title }}
-            </a>
-        {% empty %}
-            <div class="list-group-item">Nenhum filme disponível.</div>
-        {% endfor %}
+<div class="d-flex justify-content-center">
+    <div class="card text-center w-50">
+        <div class="card-header">
+            <h2 class="mb-0">Lista de filmes</h2>
+        </div>
+        <div class="list-group list-group-flush">
+            {% for film in films %}
+                <a href="{% url 'film_profile' film.id %}" class="list-group-item list-group-item-action">
+                    {{ film.title }}
+                </a>
+            {% empty %}
+                <div class="list-group-item">Nenhum filme disponível.</div>
+            {% endfor %}
+        </div>
     </div>
+</div>
+</div>
 {% endblock %}

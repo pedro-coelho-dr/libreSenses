@@ -70,17 +70,42 @@ class SubmitFilm(View):
 class UpdateFilm(View):
     def get(self, request, film_id):
         film = get_object_or_404(Film, pk=film_id)
-        form = FilmForm(instance=film)
-        return render(request, 'update_film.html', {'form': form})
+        film_form = FilmForm(instance=film)
+        audio_description_form = AudioDescriptionForm()
+        sign_language_form = SignLanguageForm()
+        media_alternative_form = MediaAlternativeForm()
+
+        context = {
+            'film_form': film_form,
+            'caption_form': caption_form,
+            'audio_description_form': audio_description_form,
+            'sign_language_form': sign_language_form,
+            'media_alternative_form': media_alternative_form,
+            'film': film,
+        }
+        return render(request, 'film_profile.html', context)
 
     def post(self, request, film_id):
         film = get_object_or_404(Film, pk=film_id)
-        form = FilmForm(request.POST, request.FILES, instance=film)
-        if form.is_valid():
-            form.save()
-            return redirect('film_profile', film_id=film.id)
-        return HttpResponseBadRequest("Invalid data")
+        film_form = FilmForm(request.POST, request.FILES, instance=film)
+        caption_form = CaptionForm() 
+        audio_description_form = AudioDescriptionForm()
+        sign_language_form = SignLanguageForm()
+        media_alternative_form = MediaAlternativeForm()
 
+        if film_form.is_valid():
+            film_form.save()
+            return redirect('film_profile', film_id=film.id)
+        else:
+            context = {
+                'film_form': film_form,
+                'caption_form': caption_form,
+                'audio_description_form': audio_description_form,
+                'sign_language_form': sign_language_form,
+                'media_alternative_form': media_alternative_form,
+                'film': film,
+            }
+            return render(request, 'film_profile.html', context)
 # Add Caption View
 class AddCaption(View):
     def post(self, request, film_id):
@@ -150,7 +175,7 @@ class DeleteEntry(View):
         film_id = entry.film.id if hasattr(entry, 'film') else None
         entry.delete()
 
-        messages.success(request, f'{model_name.replace("_", " ").capitalize()} deleted successfully.')
+        messages.success(request, f'{model_name.replace("_", " ").capitalize()} deletado com sucesso.')
         if film_id:
             return redirect('film_profile', film_id=film_id)
         else:
