@@ -1,7 +1,7 @@
 # LibreSenses
 [Prototype](https://libresenses-service-ibu7uv3kqq-rj.a.run.app/)
 ## Introduction
-LibreSenses is a Django web application developed as part of the 'Projects 3' course at Cesar School [Cesar School](https://cesar.school/). This project enhances the Libreflix platform, a peer-to-peer streaming service focused on free streaming of movies. LibreSenses aligns with the ethos of free culture and software, embodying the principles of [Libreflix](https://libreflix.org).
+LibreSenses is a Django web application developed as part of the 'Projects 3' course at [Cesar School](https://cesar.school/). This project enhances the Libreflix platform, a peer-to-peer streaming service focused on free streaming of movies. LibreSenses aligns with the ethos of free culture and software, embodying the principles of [Libreflix](https://libreflix.org).
 
 The core functionality of LibreSenses centers around accessible content submission, specifically designed to meet the diverse requirements of viewers, including those with disabilities.
 The application provides a user-friendly interface for submitting and managing films, to enhance accessibility in line with the [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/) standards.
@@ -140,11 +140,7 @@ To run the project locally:
 
 ## Tools
 
-This project utilizes a range of tools for development, deployment, and design. Below is a list of these tools with links for more information:
-
-- [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/about)
-- [Ubuntu](https://ubuntu.com/)
-- [Visual Studio Code)](https://code.visualstudio.com/)
+- [Visual Studio Code](https://code.visualstudio.com/)
 - [Python](https://www.python.org/)
 - [Django](https://www.djangoproject.com/)
 - [Bootstrap 5](https://getbootstrap.com/)
@@ -156,6 +152,8 @@ This project utilizes a range of tools for development, deployment, and design. 
 - [GitHub](https://github.com/)
 - [Docker](https://www.docker.com/)
 - [Google Cloud](https://cloud.google.com/)
+- [WSL](https://docs.microsoft.com/en-us/windows/wsl/about)
+- [Ubuntu](https://ubuntu.com/)
 
 
 ## Team
