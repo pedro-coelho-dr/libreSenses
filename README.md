@@ -1,16 +1,16 @@
 # LibreSenses
-
-## Project Description
+[Prototype](https://libresenses-service-ibu7uv3kqq-rj.a.run.app/)
+## Introduction
 LibreSenses is a Django web application developed as part of the 'Projects 3' course at Cesar School [Cesar School](https://cesar.school/). This project enhances the Libreflix platform, a peer-to-peer streaming service focused on free streaming of movies. LibreSenses aligns with the ethos of free culture and software, embodying the principles of [Libreflix](https://libreflix.org).
 
 The core functionality of LibreSenses centers around accessible content submission, specifically designed to meet the diverse requirements of viewers, including those with disabilities.
-The application provides a user-friendly interface for submitting and managing films, tailored to enhance accessibility in line with the [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/)standards.
+The application provides a user-friendly interface for submitting and managing films, to enhance accessibility in line with the [Web Content Accessibility Guidelines (WCAG)](https://www.w3.org/WAI/standards-guidelines/wcag/) standards.
 
 ### Key Features
 - **Film Submission Form**: Mirroring the current Libreflix submission form, enabling new productions to be added to the platform.
 - **Film List**: Displays a catalog of registered movies for viewing and interaction.
 - **Film Profiles**:  Allows for editing film details and adding accessibility features such as subtitles, audiodescription, sign language and alternative media.
-- **Accessibility Techniques**: Implements WCAG-compliant techniques across levels A, AA, and AAA, ensuring broad accessibility.
+- **Accessibility Techniques**: Implements WCAG-compliant techniques across levels A, AA, and AAA.
 - **Additional Resources**: Offers reference links and resources on accessibility guidelines.
 
 LibreSenses is a commitment to digital inclusivity and the spirit of free and opensource software and culture.
@@ -84,7 +84,7 @@ For more information. visit the [LibreSenses Project Site](https://sites.google.
     _This runs 'pip install -r requirements.txt'_
 
 ### Note on Deployment Settings
-The current project settings are tailored for deployment on Google Cloud. Therefore, it might not work immediately for local setups. Refer to `settings.py`, `cloudmigrate.yaml`, `Dockerfile`, and `Makefile` for more details. Additional information is available on [Google Cloud documentation](https://cloud.google.com/python/django/run).
+The current project settings are configured for deployment on Google Cloud. So, it might not work immediately for local setups. Refer to `settings.py`, `cloudmigrate.yaml`, `Dockerfile`, and `Makefile` for more details. Additional information is available on [Google Cloud documentation](https://cloud.google.com/python/django/run).
 
 To run the project locally:
 - Rename `settings_development.py` to `settings.py`.
@@ -137,6 +137,25 @@ To run the project locally:
 
 
 ## Tools
+
+## Tools
+
+This project utilizes a range of tools for development, deployment, and design. Below is a list of these tools with links for more information:
+
+- [WSL (Windows Subsystem for Linux)](https://docs.microsoft.com/en-us/windows/wsl/about)
+- [Ubuntu](https://ubuntu.com/)
+- [Visual Studio Code)](https://code.visualstudio.com/)
+- [Python](https://www.python.org/)
+- [Django](https://www.djangoproject.com/)
+- [Bootstrap 5](https://getbootstrap.com/)
+- [Django Crispy Forms](https://django-crispy-forms.readthedocs.io/en/latest/)
+- [Poetry](https://python-poetry.org/)
+- [Virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/)
+- [Graphviz](https://graphviz.org/)
+- [Figma](https://www.figma.com/)
+- [GitHub](https://github.com/)
+- [Docker](https://www.docker.com/)
+- [Google Cloud](https://cloud.google.com/)
 
 
 ## Team
