@@ -147,6 +147,8 @@ WSGI_APPLICATION = 'project.wsgi.application'
 # Use django-environ to parse the connection string
 DATABASES = {"default": env.db()}
 
+
+USE_CLOUD_SQL_AUTH_PROXY=True
 # If the flag as been set, configure to use proxy
 if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
     DATABASES["default"]["HOST"] = "127.0.0.1"

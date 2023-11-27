@@ -35,10 +35,10 @@ class FilmForm(forms.ModelForm):
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
             Row(
-                Column('title', css_class='form-group col-md-6 mb-0')
+                Column('title', css_class='form-group col-md-8 mb-0')
             ),
             Row(
-                Column('subtitle', css_class='form-group col-md-6 mb-0')
+                Column('subtitle', css_class='form-group col-md-8 mb-0')
             ),
             Row(
                 Column('year', css_class='form-group col-md-3 mb-0')
@@ -47,16 +47,16 @@ class FilmForm(forms.ModelForm):
                 Column('length', css_class='form-group col-md-3 mb-0')
             ),
             Row(
-                Column(InlineRadios('rating'), css_class='form-group col-md-8 mb-0')
+                Column(InlineRadios('rating'), css_class='form-group col-md-12 mb-0')
             ),
             Row(
-                Column('description', css_class='form-group col-md-10 mb-0')
+                Column('description', css_class='form-group col-md-12 mb-0')
             ),
             Row(
-                Column('url', css_class='form-group col-md-6 mb-0')
+                Column('url', css_class='form-group col-md-8 mb-0')
             ),
             Row(
-                Column('permalink', css_class='form-group col-md-6 mb-0')
+                Column('permalink', css_class='form-group col-md-8 mb-0')
             ),
             Row(
                 Column('background', css_class='form-group col-md-6 mb-0')

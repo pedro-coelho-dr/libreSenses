@@ -1,31 +1,52 @@
-.PHONY: install migrate migrations migrations-init run superuser update docker diagram collectstatic
-
-install:
-	poetry install
-
-migrate:
-	poetry run python manage.py migrate
+.PHONY: migrate migrations migrations-init run superuser diagram collectstatic cloud-sql-proxy gcloud-build gcloud-deploy gcloud-update
 
 migrations:
-	poetry run python manage.py makemigrations
+	python manage.py makemigrations
 
-collectstatic:
-	poetry run python manage.py collectstatic
+migrate:
+	python manage.py migrate
 
 migrations-init:
-	poetry run python manage.py makemigrations libresenses
+	python manage.py makemigrations libresenses
 
 run:
-	poetry run python manage.py runserver
+	python manage.py runserver 8080
+
+collectstatic:
+	python manage.py collectstatic
 
 superuser:
-	poetry run python manage.py createsuperuser
+	python manage.py createsuperuser
 
-docker:
-	docker build -t libresenses-app .
+requirements:
+	pip install -r requirements.txt
 
-update: install migrate ;
+make freeze:
+	pip freeze > requirements. txt  
 
 diagram: 
-	poetry run python manage.py graph_models libresenses  -e -S --arrow-shape normal  -n  --dot -g -o libresenses_models.dot
+	python manage.py graph_models libresenses  -e -S --arrow-shape normal  -n  --dot -g -o libresenses_models.dot
 	dot -Tpng libresenses_models.dot -o libresenses_models.png
+
+
+#GOOGLE CLOUD COMMANDS
+cloud-sql-proxy:
+	./cloud-sql-proxy libresenses:southamerica-east1:libresenses-postgresql-instance --port 1234
+
+gcloud-build:
+	gcloud builds submit --config cloudmigrate.yaml
+
+gcloud-deploy:
+	gcloud run deploy libresenses-service \
+    --platform managed \
+    --region southamerica-east1 \
+    --image gcr.io/libresenses/libresenses-service \
+    --add-cloudsql-instances libresenses:southamerica-east1:libresenses-postgresql-instance \
+    --allow-unauthenticated
+
+gcloud-update:
+	$(eval SERVICE_URL := $(shell gcloud run services describe libresenses-service --platform managed --region southamerica-east1 --format "value(status.url)"))
+	@gcloud run services update libresenses-service \
+		--platform managed \
+		--region southamerica-east1 \
+		--set-env-vars CLOUDRUN_SERVICE_URL=$(SERVICE_URL)
