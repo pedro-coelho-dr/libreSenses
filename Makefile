@@ -1,4 +1,10 @@
-.PHONY: migrate migrations migrations-init run superuser diagram collectstatic cloud-sql-proxy gcloud-build gcloud-deploy gcloud-update
+.PHONY: migrations-init superuser migrations migrate run requirements collectstatic freeze diagram cloud-sql-proxy gcloud-build gcloud-deploy gcloud-update
+
+migrations-init:
+	python manage.py makemigrations libresenses
+
+superuser:
+	python manage.py createsuperuser
 
 migrations:
 	python manage.py makemigrations
@@ -6,28 +12,21 @@ migrations:
 migrate:
 	python manage.py migrate
 
-migrations-init:
-	python manage.py makemigrations libresenses
-
 run:
 	python manage.py runserver 8080
-
-collectstatic:
-	python manage.py collectstatic
-
-superuser:
-	python manage.py createsuperuser
 
 requirements:
 	pip install -r requirements.txt
 
-make freeze:
+collectstatic:
+	python manage.py collectstatic
+
+freeze:
 	pip freeze > requirements. txt  
 
 diagram: 
 	python manage.py graph_models libresenses  -e -S --arrow-shape normal  -n  --dot -g -o libresenses_models.dot
 	dot -Tpng libresenses_models.dot -o libresenses_models.png
-
 
 #GOOGLE CLOUD COMMANDS
 cloud-sql-proxy:
