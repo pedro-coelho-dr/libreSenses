@@ -47,7 +47,7 @@ For more information. visit the [LibreSenses Project Site](https://sites.google.
     ```
     cd libresenses
     ```
-    # Replace 'libresenses' with your actual project directory.
+    _Replace 'libresenses' with your actual project directory._
 3. **Set up a virtual environment:**
 - Install [virtualenv](https://virtualenv.pypa.io/):
   ```
@@ -81,7 +81,7 @@ For more information. visit the [LibreSenses Project Site](https://sites.google.
     ```
     make requirements
     ```
-    # This runs 'pip install -r requirements.txt'
+    _This runs 'pip install -r requirements.txt'_
 
 ### Note on Deployment Settings
 The current project settings are tailored for deployment on Google Cloud. Therefore, it might not work immediately for local setups. Refer to `settings.py`, `cloudmigrate.yaml`, `Dockerfile`, and `Makefile` for more details. Additional information is available on [Google Cloud documentation](https://cloud.google.com/python/django/run).
@@ -95,26 +95,26 @@ To run the project locally:
     ```
     make migrations-init
     ```
-    # This runs 'python manage.py makemigrations libresenses'
+    _This runs 'python manage.py makemigrations libresenses'_
 
 3. **Create a superuser:**
     ```
     make superuser
     ```
-    # This runs 'python manage.py createsuperuser'
+    _This runs 'python manage.py createsuperuser'_
 
 4. **Apply migrations:**
     ```
     make migrations
     make migrate
     ```
-    # This runs 'python manage.py makemigrations' and 'python manage.py migrate'
+    _This runs 'python manage.py makemigrations' and 'python manage.py migrate'_
 
 5. **Run the server:**
     ```
     make run 
     ```
-    # This runs 'python manage.py runserver 8080'
+    _This runs 'python manage.py runserver 8080'_
 
 
 ## Usage
