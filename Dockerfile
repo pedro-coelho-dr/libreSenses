@@ -1,33 +1,37 @@
-# Use the official Python image that's based on Debian and is relatively small in size
-FROM python:3.10-slim
+# Copyright 2020 Google LLC
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
 
-# Set environment variables that ensure output from python is sent straight to the terminal without buffering it first
-ENV PYTHONDONTWRITEBYTECODE 1
+# Use an official lightweight Python image.
+# https://hub.docker.com/_/python
+FROM python:3.11-slim
+
+ENV APP_HOME /app
+WORKDIR $APP_HOME
+
+# Removes output stream buffering, allowing for more efficient logging
 ENV PYTHONUNBUFFERED 1
 
-# Install system dependencies required for Python packages like psycopg2
-RUN apt-get update \
-  && apt-get install -y libpq-dev gcc \
-  && apt-get clean
+# Install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Set the working directory in the container
-WORKDIR /app
+# Copy local code to the container image.
+COPY . .
 
-# Copy the 'pyproject.toml' and 'poetry.lock' into the container
-COPY pyproject.toml poetry.lock /app/
-
-# Install poetry for Python package management
-RUN pip install poetry
-
-# Install the Python dependencies in '/app' directory
-RUN poetry config virtualenvs.create false \
-  && poetry install --no-interaction --no-ansi
-
-# Copy the rest of the app's code into the container
-COPY . /app
-
-# Expose the port the app runs on
-EXPOSE 8000
-
-# Command to run the application using gunicorn as the WSGI server
-CMD ["gunicorn", "project.wsgi:application", "--bind", "0.0.0.0:8000"]
+# Run the web service on container startup. Here we use the gunicorn
+# webserver, with one worker process and 8 threads.
+# For environments with multiple CPU cores, increase the number of workers
+# to be equal to the cores available.
+# Timeout is set to 0 to disable the timeouts of the workers to allow Cloud Run to handle instance scaling.
+CMD exec gunicorn --bind 0.0.0.0:$PORT --workers 1 --threads 8 --timeout 0 mysite.wsgi:application

@@ -1,4 +1,4 @@
-.PHONY: install migrate migrations migrations-init run superuser update docker diagram
+.PHONY: install migrate migrations migrations-init run superuser update docker diagram collectstatic
 
 install:
 	poetry install
@@ -8,6 +8,9 @@ migrate:
 
 migrations:
 	poetry run python manage.py makemigrations
+
+collectstatic:
+	poetry run python manage.py collectstatic
 
 migrations-init:
 	poetry run python manage.py makemigrations libresenses

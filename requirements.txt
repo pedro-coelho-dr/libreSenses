@@ -6,10 +6,14 @@ Django==4.2.6
 django-crispy-forms==2.1
 django-extensions==3.2.3
 gunicorn==21.2.0
--e git+https://github.com/pedro-coelho-dr/libresenses.git@9a130dad9900a6044942a0de76cf2fff53dae80d#egg=libresenses
+-e git+https://github.com/pedro-coelho-dr/libresenses.git@3d0fa85bfec8016c776ec99aaeb3668476e34fdb#egg=libresenses
 packaging==23.2
 Pillow==10.1.0
 psycopg2-binary==2.9.9
 sqlparse==0.4.4
 typing_extensions==4.8.0
 whitenoise==6.6.0
+django-storages[google]==1.13.2
+django-environ==0.10.0
+google-cloud-secret-manager==2.16.1
+python_version >= '3.8'

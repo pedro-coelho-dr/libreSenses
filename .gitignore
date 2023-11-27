@@ -1,6 +1,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,macos,visualstudiocode,python,virtualenv,django,dotenv
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,macos,visualstudiocode,python,virtualenv,django,dotenv
-
+static/
+cloud-sql-proxy
+cloudmigrate.yaml
 ### Django ###
 *.log
 *.pot
