@@ -83,7 +83,7 @@ For more information, visit the [LibreSenses Project Site](https://sites.google.
     _This runs 'pip install -r requirements.txt'_
 
 ### Note on Deployment Settings
-The current project settings are configured for deployment on Google Cloud. So, it might not work immediately for local setups. Refer to `settings.py`, `cloudmigrate.yaml`, `Dockerfile`, and `Makefile` for more details. Additional information is available on [Google Cloud documentation](https://cloud.google.com/python/django/run).
+The current project settings are configured for deployment on Google Cloud. So it might not work immediately for local setups. Refer to `settings.py`, `cloudmigrate.yaml`, `Dockerfile`, and `Makefile` for more details. Additional information is available on [Google Cloud documentation](https://cloud.google.com/python/django/run).
 
 To run the project locally:
 - Rename `settings_development.py` to `settings.py`.
@@ -122,11 +122,71 @@ To run the project locally:
 
 ### Creating Models
 
+In Django, the `models.py` file is at the heart of the application's data representation, defining the structure of the data that the application will work with using Python and Django's ORM (Object-Relational Mapping) system. It also defines the structure of the database, using classes and fields that Django translates into database tables.
+
+#### Class Representation
+Each model in Django is a Python class that subclasses `django.db.models.Model`. This is similar to defining a class in Java, where each class represents an entity with its attributes and behaviors. For example, the `Film` class represents the film entity with attributes like title, year, rating, and methods that define its actions.
+
+#### Encapsulation
+The models encapsulate the data fields and database operations. Each class, like `Caption` or `AudioDescription`, manages its interaction with the database, making sure that the data handling is secure and consistent.
+
+#### Associations and Relationships
+Django models handle relationships between different data entities effectively. For example, the use of ForeignKey in `Caption`, `AudioDescription`, `SignLanguage`, and `MediaAlternative` models to link to the `Film` model and establish associations between the objects.
+
+#### Validations
+The models also handle data validation. Methods like `validate_file_size` and validators like `FileExtensionValidator` and `MinValueValidator` are the last layer of validation to ensure data integrity.
+
+
 ### Implementing Views
+
+In Django, `views.py` role is to handle the logic and control of the application (Django doesn´t have a separeted controller layer). It is responsible for processing incoming requests, preparing the data and sending the response back to the user. Views act as an intermediary between the models and templates.
+
+This project utilizes class-based views. This method aligns with object-oriented principles, enhancing the code's organization, readability and maintainability.
+
+#### Encapsulation
+Each view class functions as an independent unit, managing its own state and behavior. For example, `FilmList` encapsulates the logic to retrieve and display the list of films, making the code more modular.
+
+#### Inheritance
+The use of class-based views allows for inheritance and extension of the view functionalities. This is useful for customizing specific behaviors for different views, like in `FilmProfile`, which can extend a generic view class with additional methods specific to film profiles.
+
+#### Polymorphism
+Different view classes can have methods with the same name but designed to handle different tasks. For example, the `post` method in `AddCaption` and `AddAudioDescription` classes are uniquely to handle different types of content submissions.
+
+#### Abstraction
+Class-based views abstract the complexity of operations. Methods like `get` or `post` in classes like `SubmitFilm` and `UpdateFilm` provides a simplified interface, hiding the complexity and making the code more friendly.
+
+#### Modularity
+Using class-based views also promotes a modular code structure, facilitating the development and testing of each component.
+
 
 ### Designing Forms
 
+In Django, `forms.py` role is to define forms for user input interacting with the models. Views and forms work together, with views rendering forms and handling form submissions. Forms prioritize user inputs and validations, while views handle the request-response logic.
+
+#### Class-Based
+Each form is a class that defines how a model should be in the interface. `FilmForm` encapsulates all the fields and behaviors necessary to create or edit a film.
+
+#### Encapsulation
+Each form class in `forms.py` manages its state and behavior, encapsulating data, validation and presentation logic. This is evident in the `FilmForm` class, which handles the logic for input fields related to films.
+
+#### Validation Layers
+The forms have two layers of validation. The first layer comes from Django's built-in form validation. The second layer are custom validation methods in the form classes, like `validate_image_file_size` in `FilmForm` or `clean_caption_file` in `CaptionForm`.
+
+#### Crispy Forms
+Django Crispy Forms is used for layouts and styling, and may be integrated with Bootstrap. It allows for establishing layouts declaratively. For example, in `FilmForm`, the FormHelper and layout objects define how the form should be rendered, making it easy to manage form presentation.
+
 ### Front-end Development
+
+In Django, templates are used for generating HTML dynamically. They allow the mixing of static HTML with Django Template Language (DTL) for dynamic content rendering. 
+
+#### Template Inheritance
+Using `{% extends 'index.html' %}` demonstrates template inheritance, allowing for a base template structure that can be extended or overridden in child templates.
+
+#### Bootstrap for Responsive Design
+This project integrates Bootstrap for responsive design. This framework provides a variety of pre-designed components and a grid system, simplifying the layout and design process.
+
+#### Custom CSS
+Together with Bootstrap, `custom.css` is used for additional styling for customization beyond Bootstrap's default styles, enabling personalized designs.
 
 ## Diagrams
 
