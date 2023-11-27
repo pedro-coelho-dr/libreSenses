@@ -46,7 +46,7 @@ elif os.getenv("TRAMPOLINE_CI", None):
 
     placeholder = (
         f"SECRET_KEY=a\n"
-        "GS_BUCKET_NAME=None\n"
+        "GS_BUCKET_NAME=libresenses-bucket"
         f"DATABASE_URL=sqlite://{os.path.join(BASE_DIR, 'db.sqlite3')}"
     )
     env.read_env(io.StringIO(placeholder))
@@ -150,7 +150,7 @@ DATABASES = {"default": env.db()}
 # If the flag as been set, configure to use proxy
 if os.getenv("USE_CLOUD_SQL_AUTH_PROXY", None):
     DATABASES["default"]["HOST"] = "127.0.0.1"
-    DATABASES["default"]["PORT"] = 5432
+    DATABASES["default"]["PORT"] = 1234
 
 # [END cloudrun_django_database_config]
 
@@ -192,12 +192,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # [START cloudrun_django_static_config]
 # Define static storage via django-storages[google]
+
 GS_BUCKET_NAME = env("GS_BUCKET_NAME")
-STATIC_URL = "/static/"
-DEFAULT_FILE_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
-STATICFILES_STORAGE = "storages.backends.gcloud.GoogleCloudStorage"
 GS_DEFAULT_ACL = "publicRead"
+STATIC_URL = "/static/"
+DEFAULT_FILE_STORAGE = 'project.gcsUtils.Media'
+STATICFILES_STORAGE = 'project.gcsUtils.Static'
+
 # [END cloudrun_django_static_config]
+
+""" 
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.gcloud.GoogleCloudStorage",
+        },
+        
+    "staticfiles": {
+        "BACKEND":'storages.backends.gcloud.GoogleCloudStorage',
+    }
+}
+ """
 
 
 # Default primary key field type
