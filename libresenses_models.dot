@@ -1,6 +1,6 @@
 digraph model_graph {
   // Dotfile by Django-Extensions graph_models
-  // Created: 2023-11-26 04:57
+  // Created: 2023-11-27 00:01
   // Cli Options: libresenses -e -S --arrow-shape normal -n --dot -g -o libresenses_models.dot
 
   fontname = "Roboto"
@@ -66,41 +66,41 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">Year</FONT>
+      <FONT FACE="Roboto">Year</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">IntegerField</FONT>
+      <FONT FACE="Roboto">IntegerField</FONT>
       </TD></TR>
     
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">Length</FONT>
+      <FONT FACE="Roboto">Length</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">IntegerField</FONT>
+      <FONT FACE="Roboto">IntegerField</FONT>
       </TD></TR>
     
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">Rating</FONT>
+      <FONT FACE="Roboto">Rating</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">CharField</FONT>
+      <FONT FACE="Roboto">CharField</FONT>
       </TD></TR>
     
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">Description</FONT>
+      <FONT FACE="Roboto">Description</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">TextField</FONT>
+      <FONT FACE="Roboto">TextField</FONT>
       </TD></TR>
     
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">Url</FONT>
+      <FONT FACE="Roboto">Url</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">URLField</FONT>
+      <FONT FACE="Roboto">URLField</FONT>
       </TD></TR>
     
     
@@ -172,9 +172,9 @@ digraph model_graph {
     
     
       <TR><TD ALIGN="LEFT" BORDER="0">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">Caption file</FONT>
+      <FONT FACE="Roboto">Caption file</FONT>
       </TD><TD ALIGN="LEFT">
-      <FONT COLOR="#7B7B7B" FACE="Roboto">FileField</FONT>
+      <FONT FACE="Roboto">FileField</FONT>
       </TD></TR>
     
     

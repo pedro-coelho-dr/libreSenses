@@ -15,28 +15,46 @@
             <div class="row justify-content-center text-dark">
                 <div class="col-lg-8 bg-light rounded-3 shadow p-4"">
                         {% block content %}
-                        <!-- Main Content -->
+                        <!-- MAIN -->
                         <div class="card shadow">
                             <div class="card-header">
-                                <h2 class="mb-0">Bem-vindo ao LibreSenses</h2>
+                                <h2 class="mb-0">Ferramenta de Submissão de Conteúdo Acessível</h2>
                             </div>
                             <div class="card-body">
                                 <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Esta página é o ponto de partida do protótipo de nossa solução: uma ferramenta de submissão de conteúdo acessível para o LibreFlix.</li>
-                                    <li class="list-group-item">O objetivo desta página é facilitar a navegação e a compreensão das funcionalidades da ferramenta.</li>
-                                    <li class="list-group-item">Aqui, os usuários podem submeter um novo filme utilizando nosso formulário ou acessar filmes já cadastrados para adição de elementos que tornem o conteúdo mais acessível.</li>
-                                    <li class="list-group-item">Obs.: Para fins de facilitar testes, alguns campos do formulário não estão como obrigatórios quando deveriam estar.</li>
-                                    <li class="list-group-item">Obs 2.: Para facilitar teste, os filmes cadastrados ficam disponíveis para todos os usuários.</li>
-                                    <li class="list-group-item">Obs 3.: No formulário de envio de filmes, propor algumas mudanças.</li>
+                                    <li class="list-group-item">Bem-vindo à página inicial do protótipo desenvolvido para o <a href="https://libreflix.org/" target="_blank"><u>Libreflix</u></a>.
+                                                                <br><br>
+                                                                Este projeto faz parte da disciplina 'Projetos 3' da <a href="https://cesar.school/" target="_blank"><u>Cesar School</u>.</a>
+                                                                <br><br>
+                                                                Nossa solução é uma ferramenta dedicada à submissão de conteúdo acessível, visando a inclusão de recursos de acessibilidade em conteúdos audiovisuais.
+                                    </li>
+
+                                    <li class="list-group-item"><br>A ferramenta está alinhada com os princípios de cultura e software livre da Libreflix e às <a href="https://www.w3.org/Translations/WCAG20-pt-br/#media-equiv" target="_blank"><u>diretrizes de acessibilidade para mídias baseadas em tempo</u></a> da <a href="https://www.w3.org/WAI/standards-guidelines/wcag/" target="_blank"><u>WCAG</u></a>.</li>
+                                    <li class="list-group-item"><br>O objetivo desta página é simplificar a navegação e proporcionar um entendimento claro das funcionalidades disponíveis na ferramenta:
+                                                                <br><br><strong>Envio de Filmes</strong>: Esta opção replica o formulário atual do Libreflix para o envio de novas produções à plataforma.
+                                                                <br><br><strong>Lista de Filmes</strong>: Aqui, você encontrará uma lista de filmes pré-cadastrados para visualização e interação.
+                                                                <br><br>Atenção! Filmes enviados através deste protótipo ficarão disponíveis a todos. Não há autenticação de usuários.
+                                    </li>
+                                    <li class="list-group-item"><br>Após o envio ou seleção de um filme, você poderá acessar o <strong>perfil do filme</strong>. 
+                                                                <br><br>Aqui, é possível editar informações do filme e adicionar recursos como legendas, audiodescrição, língua de sinais e mídias alternativas. 
+                                                                <br><br>Essas funcionalidades são exclusivas do nosso protótipo e representam o núcleo da solução proposta.
+                                                            </li>
+                                    <li class="list-group-item"><br>Fornecemos arquivos de <a href="static/files/amostras.zip" download="amostras.zip"><u>amostra</u></a> para facilitar o preenchimento dos campos obrigatórios e suas validações.
+
+                                    </li>
+                                    <li class="list-group-item"><br>
+                                        Este projeto é aberto e contamos com sua colaboração e feedback. <a href="https://forms.gle/xoNQEL7A1f1HAcKG9" target="_blank"><u>Fale conosco</u></a>!
+                                    </li>
+                                    <li class="list-group-item"><br>Para informações adicionais, visite nosso <a href="https://sites.google.com/cesar.school/libresenses" target="_blank"><u>site</u></a> e <a href="https://github.com/pedro-coelho-dr/libresenses" target="_blank"><u>repositório</u></a>.
+                                    </li>
                                 </ul>
                             </div>
+                            <br>
                             <div class="card-footer text-center">
                                 <div class="btn-group" role="group" aria-label="">
-                                    <a href="{% url 'film_list' %}" class="btn-custom-border text-dark btn btn-warning"><strong>Lista de filmes</strong></a>
-                                    <a href="{% url 'submit_film' %}" class="btn-custom-border text-light btn btn-success"><strong>Envie um filme</strong></a>
-                                  </div>
-                {% comment %}                 <a href="{% url 'submit_film' %}" class="btn btn-info"><strong>Envie um filme</strong></a>
-                                <a href="{% url 'film_list' %}" class="btn btn-info"><strong>Lista de filmes</strong></a> {% endcomment %}
+                                    <a href="{% url 'film_list' %}" class="btn-custom-border btn-lg text-light btn btn-secondary"><strong>Lista de filmes</strong></a>
+                                    <a href="{% url 'submit_film' %}" class="btn-custom-border btn-lg text-light btn btn-dark"><strong>Envie um filme</strong></a>
+                                </div>
                             </div>
                         </div>
                         {% endblock %}

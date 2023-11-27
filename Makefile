@@ -1,6 +1,5 @@
 .PHONY: install migrate migrations migrations-init run superuser update docker diagram
 
-
 install:
 	poetry install
 

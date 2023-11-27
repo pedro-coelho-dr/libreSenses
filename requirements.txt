@@ -6,7 +6,7 @@ Django==4.2.6
 django-crispy-forms==2.1
 django-extensions==3.2.3
 gunicorn==21.2.0
--e git+https://github.com/pedro-coelho-dr/libresenses.git@06bcedaf6cb7b37ea04538b3d43abb5d32ab9412#egg=libresenses
+-e git+https://github.com/pedro-coelho-dr/libresenses.git@9a130dad9900a6044942a0de76cf2fff53dae80d#egg=libresenses
 packaging==23.2
 Pillow==10.1.0
 psycopg2-binary==2.9.9

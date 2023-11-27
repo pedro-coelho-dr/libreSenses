@@ -6,7 +6,7 @@
     <div class="container mt-5">
         <div class="card">
             <div class="card-header">
-                <strong>Filme</strong>
+                <strong>Conteúdo Audiovisual</strong>
             </div>
             <div class="card-body">
                 <div class="row">
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-            <!-- CAPTIONS -->
+        <!-- CAPTIONS -->
         {% if captions %}
         <div class="card mt-3">
             <div class="card-header">
@@ -46,7 +46,7 @@
                     <li class="list-group-item">
                         {{ caption.language }} - <a href="{{ caption.caption_file.url }}">download</a>
                         <a href="#" class="custom-delete-link" onclick="event.preventDefault(); this.nextElementSibling.submit();">
-                            Remover
+                            delete
                         </a>
                         <form action="{% url 'delete_entry' 'caption' caption.id %}" method="post" style="display: none;">
                             {% csrf_token %}
@@ -57,6 +57,7 @@
             </div>
         </div>
         {% endif %}
+
         <!-- AUDIO DESCRIPTION -->
         {% if audio_descriptions %}
         <div class="card mt-3">
@@ -67,9 +68,12 @@
                 <ul class="list-group list-group-flush">
                     {% for ad in audio_descriptions %}
                     <li class="list-group-item">
-                        {{ ad.language }} - <a href="{{ ad.audio_url }}">link</a> ({{ ad.get_audio_type_display }})
+                        {{ ad.language }} - 
+                        {{ ad.is_extended|yesno:"estendida,não estendida" }} -
+                        {{ ad.is_only_audio|yesno:"somente áudio,vídeo e áudio" }} - 
+                        <a href="{{ ad.audio_url }}">link</a> - 
                         <a href="#" class="custom-delete-link" onclick="event.preventDefault(); this.nextElementSibling.submit();">
-                            Remover
+                            delete
                         </a>
                         <form action="{% url 'delete_entry' 'audio_description' ad.id %}" method="post" style="display: none;">
                             {% csrf_token %}
@@ -81,7 +85,7 @@
         </div>
         {% endif %}
 
-        <!-- Sign Languages -->
+        <!-- SIGN LANGUAGE -->
         {% if sign_languages %}
         <div class="card mt-3">
             <div class="card-header">
@@ -91,9 +95,11 @@
                 <ul class="list-group list-group-flush">
                     {% for sl in sign_languages %}
                     <li class="list-group-item">
-                        {{ sl.language }} - <a href="{{ sl.sign_language_video_url }}">link</a>
+                        {{ sl.language }} - 
+                        {{ sl.is_hardcoded|yesno:"embutida, separada" }} - 
+                        <a href="{{ sl.sign_language_video_url }}">link</a> - 
                         <a href="#" class="custom-delete-link" onclick="event.preventDefault(); this.nextElementSibling.submit();">
-                            Remover
+                            delete
                         </a>
                         <form action="{% url 'delete_entry' 'sign_language' sl.id %}" method="post" style="display: none;">
                             {% csrf_token %}
@@ -105,7 +111,7 @@
         </div>
         {% endif %}
 
-        <!-- Media Alternatives-->
+        <!-- MEDIA ALTERNATIVE-->
         {% if media_alternatives %}
         <div class="card mt-3">
             <div class="card-header">
@@ -117,7 +123,7 @@
                     <li class="list-group-item">
                         {{ ma.language }} - <a href="{{ ma.alternative_file.url }}">download</a>
                         <a href="#" class="custom-delete-link" onclick="event.preventDefault(); this.nextElementSibling.submit();">
-                            Remover
+                            delete
                         </a>
                         <form action="{% url 'delete_entry' 'media_alternative' ma.id %}" method="post" style="display: none;">
                             {% csrf_token %}
@@ -157,34 +163,52 @@
                 {% include 'edit_film_form.html' %}
             </div>
         
-            <!-- Add Caption Form -->
+            <!-- Caption Form -->
             <div class="tab-pane fade" id="addCaption">
                 <br>
                 {% include 'caption_form.html' %}
+                <p><strong> ! </strong>Para mais informações sobre acessibilidade com legendas, acesse o 
+                    <a href="https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded" target="_blank"><u>guia em inglês</u></a>
+                     ou a <a href="https://www.w3.org/Translations/WCAG20-pt-br/#media-equiv" target="_blank"><u>versão em português</u></a>. 
+                    Consulte também o <a href="https://guia-wcag.com/" target="_blank"><u>guia de consulta rápida</u></a>.</p>
             </div>
         
-            <!-- Add Audio Description Form -->
+            <!-- Audio Description Form -->
             <div class="tab-pane fade" id="addAudioDescription">
                 <br>
                 {% include 'audio_description_form.html' %}
+                <p><strong> ! </strong>Para mais informações sobre audiodescrição, acesse o 
+                    <a href="https://www.w3.org/WAI/WCAG22/Understanding/audio-description-prerecorded" target="_blank"><u>guia em inglês</u></a>
+                     ou a <a href="https://www.w3.org/Translations/WCAG20-pt-br/#media-equiv" target="_blank"><u>versão em português</u></a>. 
+                    Consulte também o <a href="https://guia-wcag.com/" target="_blank"><u>guia de consulta rápida</u></a>.</p>
             </div>
         
-            <!-- Add Sign Language Form -->
+            <!-- Sign Language Form -->
             <div class="tab-pane fade" id="addSignLanguage">
                 <br>
                 {% include 'sign_language_form.html' %}
+                <p><strong> ! </strong>Para mais informações sobre língua de sinais, acesse o 
+                    <a href="https://www.w3.org/WAI/WCAG22/Understanding/sign-language-prerecorded" target="_blank"><u>guia em inglês</u></a>
+                     ou a <a href="https://www.w3.org/Translations/WCAG20-pt-br/#media-equiv" target="_blank"><u>versão em português</u></a>. 
+                    Consulte também o <a href="https://guia-wcag.com/" target="_blank"><u>guia de consulta rápida</u></a>.</p>
             </div>
         
-            <!-- Add Media Alternative Form -->
+            <!-- Media Alternative Form -->
             <div class="tab-pane fade" id="addMediaAlternative">
                 <br>
                 {% include 'media_alternative_form.html' %}
+                <p><strong> ! </strong>Para mais informações sobre mídias alternativas, acesse o 
+                    <a href="https://www.w3.org/WAI/WCAG22/Understanding/media-alternative-prerecorded" target="_blank"><u>guia em inglês</u></a>
+                     ou a <a href="https://www.w3.org/Translations/WCAG20-pt-br/#media-equiv" target="_blank"><u>versão em português</u></a>. 
+                    Consulte também o <a href="https://guia-wcag.com/" target="_blank"><u>guia de consulta rápida</u></a>.</p>
+
             </div>
         </div>
         <br>
-        <form action="{% url 'delete_entry' 'film' film.id %}" method="post" onsubmit="return confirm('Você tem certeza que deseja remover este filme?');">
+        <!--Delete Film Entry-->
+        <form action="{% url 'delete_entry' 'film' film.id %}" method="post" onsubmit="return confirm('Você tem certeza que deseja remover este conteúdo audiovisual?');" class="d-flex justify-content-end">
             {% csrf_token %}
-            <button type="submit" class="btn btn-danger">Remover Filme</button>
+            <button type="submit" class="btn btn-danger">Remover Conteúdo Audiovisual</button>
         </form>
-        {% endblock %} 
+{% endblock %} 
 

@@ -7,7 +7,6 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Row, Column, Field
 from crispy_forms.bootstrap import FormActions, InlineRadios
 
-
 class FilmForm(forms.ModelForm):
     class Meta:
         model = Film
@@ -17,9 +16,9 @@ class FilmForm(forms.ModelForm):
             'permalink'
         ]
         labels = {
-            'title': 'Título da Produção',
-            'subtitle': 'Subtítulo da Produção',
-            'year': 'Ano da Produção',
+            'title': 'Título',
+            'subtitle': 'Subtítulo',
+            'year': 'Ano',
             'length': 'Duração',
             'rating': 'Classificação Indicativa',
             'description': 'Descrição',
@@ -71,43 +70,36 @@ class FilmForm(forms.ModelForm):
         )
         self.fields['title'].widget = forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Digite o título do filme'
+            
         })
         self.fields['subtitle'].widget = forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Digite o subtítulo do filme'
         })
         self.fields['year'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
             'min': 1850,
-            'placeholder': 'Digite o ano'
         })
         self.fields['length'].widget = forms.NumberInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Digite a duração do filme em minutos'
         })
         self.fields['description'].widget = forms.Textarea(attrs={
             'class': 'form-control',
             'rows': 3,
-            'placeholder': 'Digite a descrição do filme'
         })
         self.fields['url'].widget = forms.URLInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Digite a URL do filme'
         })
         self.fields['background'].widget = forms.ClearableFileInput(attrs={
             'class': 'form-control',
             'accept': 'image/*',
-            'placeholder': 'Escolha a imagem de fundo'
+
         })
         self.fields['thumbnail'].widget = forms.ClearableFileInput(attrs={
             'class': 'form-control',
             'accept': 'image/*',
-            'placeholder': 'Escolha a miniatura'
         })
         self.fields['permalink'].widget = forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Digite o link permanente'
         })
                 
         @staticmethod
@@ -121,7 +113,7 @@ class FilmForm(forms.ModelForm):
             if background:
                 self.validate_image_file_size(background)
                 if not background.name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')):
-                    raise forms.ValidationError("Formato de arquivo não suportado. Por favor, carregue uma imagem nos formatos JPG, JPEG, PNG, GIF ou BMP.")
+                    raise forms.ValidationError("Formato de arquivo não suportado. Por favor, carregue uma imagem nos formatos JPG, JPEG, PNG, GIF ou BMP. Max 2 MB.")
             return background
 
         def clean_thumbnail(self):
@@ -129,7 +121,7 @@ class FilmForm(forms.ModelForm):
             if thumbnail:
                 self.validate_image_file_size(thumbnail)
                 if not thumbnail.name.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.bmp')):
-                    raise forms.ValidationError("Formato de arquivo não suportado. Por favor, carregue uma imagem nos formatos JPG, JPEG, PNG, GIF ou BMP.")
+                    raise forms.ValidationError("Formato de arquivo não suportado. Por favor, carregue uma imagem nos formatos JPG, JPEG, PNG, GIF ou BMP. Max 2 MB.")
             return thumbnail
         
         
@@ -173,10 +165,8 @@ class CaptionForm(forms.ModelForm):
         })
         self.fields['language'].widget = forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Digite o idioma'
         })
 
-        # Initialize FormHelper
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
@@ -203,23 +193,20 @@ class AudioDescriptionForm(forms.ModelForm):
         model = AudioDescription
         fields = ['audio_url', 'language', 'is_extended', 'is_only_audio']
         labels = {
-            'audio_url': 'URL do Áudio',
+            'audio_url': 'URL da Audiodescrição',
             'language': 'Idioma',
-            'is_extended': 'É Estendido?',
-            'is_only_audio': 'Apenas Áudio?'
+            'is_extended': 'Estendida',
+            'is_only_audio': 'Somente áudio'
         }
 
     def __init__(self, *args, **kwargs):
         super(AudioDescriptionForm, self).__init__(*args, **kwargs)
 
-        # Customize your fields here
         self.fields['audio_url'].widget = forms.URLInput(attrs={
             'class': 'form-control',
-            'placeholder': 'URL do áudio'
         })
         self.fields['language'].widget = forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Digite o idioma'
         })
         self.fields['is_extended'].widget = forms.CheckboxInput(attrs={
             'class': 'form-check-input'
@@ -228,7 +215,6 @@ class AudioDescriptionForm(forms.ModelForm):
             'class': 'form-check-input'
         })
 
-        # Initialize FormHelper
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
@@ -249,28 +235,24 @@ class SignLanguageForm(forms.ModelForm):
         model = SignLanguage
         fields = ['sign_language_video_url', 'language', 'is_hardcoded']
         labels = {
-            'sign_language_video_url': 'URL do Vídeo em Língua de Sinais',
+            'sign_language_video_url': 'URL da Língua de Sinais',
             'language': 'Idioma',
-            'is_hardcoded': 'É Incorporado?'
+            'is_hardcoded': 'Embutida'
         }
 
     def __init__(self, *args, **kwargs):
-        super(SignLanguageForm, self).__init__(*args, **kwargs)  # Corrected line
+        super(SignLanguageForm, self).__init__(*args, **kwargs) 
 
-        # Customize your fields here
         self.fields['sign_language_video_url'].widget = forms.URLInput(attrs={
             'class': 'form-control',
-            'placeholder': 'URL do vídeo em língua de sinais'
         })
         self.fields['language'].widget = forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Digite o idioma'
         })
         self.fields['is_hardcoded'].widget = forms.CheckboxInput(attrs={
             'class': 'form-check-input'
         })
 
-        # Initialize FormHelper
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(
@@ -291,7 +273,7 @@ class MediaAlternativeForm(forms.ModelForm):
         model = MediaAlternative
         fields = ['alternative_file', 'language', 'description']
         labels = {
-            'alternative_file': 'Mídia Alternativo',
+            'alternative_file': 'Arquivo da Mídia Alternativa',
             'language': 'Idioma',
             'description': 'Descrição'
         }
@@ -299,21 +281,17 @@ class MediaAlternativeForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(MediaAlternativeForm, self).__init__(*args, **kwargs)
 
-        # Customize your fields here
         self.fields['alternative_file'].widget = forms.FileInput(attrs={
             'class': 'form-control'
         })
         self.fields['language'].widget = forms.TextInput(attrs={
             'class': 'form-control',
-            'placeholder': 'Digite o idioma'
         })
         self.fields['description'].widget = forms.Textarea(attrs={
             'class': 'form-control',
             'rows': 3,
-            'placeholder': 'Descrição da mídia alternativa'
         })
 
-        # Initialize FormHelper
         self.helper = FormHelper()
         self.helper.form_method = 'post'
         self.helper.layout = Layout(

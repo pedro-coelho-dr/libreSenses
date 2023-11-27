@@ -8,20 +8,16 @@ from .forms import (
     SignLanguageForm, MediaAlternativeForm
 )
 
-# Index View
 class Index(View):
     def get(self, request):
         films = Film.objects.all()
         return render(request, 'index.html', {'films': films})
 
-# Film List 
 class FilmList(View):
     def get(self, request):
         films = Film.objects.all()
         return render(request, 'film_list.html', {'films': films})
-
-
-# Film Profile View
+    
 class FilmProfile(View):
     def get(self, request, film_id):
         film = get_object_or_404(Film, pk=film_id)
@@ -52,8 +48,6 @@ class FilmProfile(View):
 
         return render(request, 'film_profile.html', context)
 
-# Submit Film View
-
 class SubmitFilm(View):
     def get(self, request):
         film_form = FilmForm()
@@ -65,8 +59,7 @@ class SubmitFilm(View):
             film = film_form.save()
             return redirect('film_profile', film_id=film.id)
         return render(request, 'submit_film.html', {'film_form': film_form})
-
-# Update Film View
+    
 class UpdateFilm(View):
     def get(self, request, film_id):
         film = get_object_or_404(Film, pk=film_id)
@@ -84,6 +77,7 @@ class UpdateFilm(View):
             'film': film,
         }
         return render(request, 'film_profile.html', context)
+    
 
     def post(self, request, film_id):
         film = get_object_or_404(Film, pk=film_id)
@@ -106,7 +100,7 @@ class UpdateFilm(View):
                 'film': film,
             }
             return render(request, 'film_profile.html', context)
-# Add Caption View
+        
 class AddCaption(View):
     def post(self, request, film_id):
         film = get_object_or_404(Film, pk=film_id)
@@ -117,9 +111,8 @@ class AddCaption(View):
             caption.save()
             return redirect('film_profile', film_id=film_id)
         return redirect('film_profile', film_id=film_id)
+    
 
-
-# Audio Description Views
 class AddAudioDescription(View):
     def post(self, request, film_id):
         film = get_object_or_404(Film, pk=film_id)
@@ -131,8 +124,6 @@ class AddAudioDescription(View):
             return redirect('film_profile', film_id=film_id)
         return redirect('film_profile', film_id=film_id)
 
-
-# Sign Language Views
 class AddSignLanguage(View):
     def post(self, request, film_id):
         film = get_object_or_404(Film, pk=film_id)
@@ -143,8 +134,7 @@ class AddSignLanguage(View):
             sign_language.save()
             return redirect('film_profile', film_id=film_id)
         return redirect('film_profile', film_id=film_id)
-
-# Media Alternative Views
+    
 class AddMediaAlternative(View):
     def post(self, request, film_id):
         film = get_object_or_404(Film, pk=film_id)
@@ -155,8 +145,7 @@ class AddMediaAlternative(View):
             media_alternative.save()
             return redirect('film_profile', film_id=film_id)
         return redirect('film_profile', film_id=film_id)
-
-
+    
 class DeleteEntry(View):
     def post(self, request, model_name, entry_id):
         model = {
@@ -180,3 +169,4 @@ class DeleteEntry(View):
             return redirect('film_profile', film_id=film_id)
         else:
             return redirect('index')
+        
