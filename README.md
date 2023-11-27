@@ -13,11 +13,11 @@ The application provides a user-friendly interface for submitting and managing f
 - **Accessibility Techniques**: Implements WCAG-compliant techniques across levels A, AA, and AAA.
 - **Additional Resources**: Offers reference links and resources on accessibility guidelines.
 
-LibreSenses is a commitment to digital inclusivity and the spirit of free and opensource software and culture.
+LibreSenses is a commitment to digital inclusivity and the spirit of free and open-source software and culture.
 
 Explore the LibreSenses [Prototype](https://libresenses-service-ibu7uv3kqq-rj.a.run.app/).
 
-For more information. visit the [LibreSenses Project Site](https://sites.google.com/cesar.school/libresenses/) (brazilian portuguese).
+For more information, visit the [LibreSenses Project Site](https://sites.google.com/cesar.school/libresenses/) (brazilian portuguese).
 
 ## Table of Contents
 - [Installation](#installation)
@@ -27,16 +27,15 @@ For more information. visit the [LibreSenses Project Site](https://sites.google.
 - [Tools](#tools)
 - [Team](#team)
 - [Credits](#credits)
-- [License](#license)
 
 ## Installation
 
 ### Initial Setup Information
-- This project was developed using WSL (Windows Subsystem for Linux) Ubuntu and Visual Studio Code (VSCode). While these are not mandatory, they are recommended.
+- This project was developed using WSL with Ubuntu and Visual Studio Code. While these are not mandatory, they are recommended.
 
 ### Prerequisites
 - Python
-- pip (Python package manager)
+- pip
 
 ### Setting Up a Development Environment
 1. **Clone the repository:** 
@@ -71,7 +70,7 @@ For more information. visit the [LibreSenses Project Site](https://sites.google.
     ```
     pip install virtualenvwrapper
     ```
-  - See installation instructions on the [documentation](https://virtualenvwrapper.readthedocs.io/en/latest/install.html).
+  - See installation [documentation](https://virtualenvwrapper.readthedocs.io/en/latest/install.html).
   - Create and work on a new virtual environment:
     ```
     mkvirtualenv venv-libresenses
@@ -123,20 +122,13 @@ To run the project locally:
 
 ### Creating Models
 
-
 ### Implementing Views
-
 
 ### Designing Forms
 
-
 ### Front-end Development
 
-
 ## Diagrams
-
-
-## Tools
 
 ## Tools
 
@@ -162,5 +154,4 @@ To run the project locally:
 ## Credits
 
 
-## License
 
