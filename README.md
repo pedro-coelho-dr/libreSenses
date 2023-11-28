@@ -22,7 +22,7 @@ For more information, visit the [LibreSenses Project Site](https://sites.google.
 ## Table of Contents
 - [Installation](#installation)
 - [Usage](#usage)
-- [Development Process](#development-process)
+- [Development](#development)
 - [Diagrams](#diagrams)
 - [Tools](#tools)
 - [Team](#team)
@@ -148,7 +148,7 @@ Offer alternative media options for enhanced accessibility. This could include d
 <br><img width="493" alt="media alternative form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/84ff3dcf-fcf5-45a9-935c-05a46924cc58">
 
 
-## Development Process
+## Development
 
 ### Creating Models
 
