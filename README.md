@@ -255,7 +255,9 @@ Lucas Dias<br>
 Pedro Coelho<br>
 Rafael Menezes<br>
 Matheus Lazzarotto<br>
-##
+
+---
+
 [<img src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/13bbf93e-6d09-4dbd-852a-6207e525b8ec" width="80">](https://sites.google.com/cesar.school/libresenses/)<br><br>
 [<img src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/9d8731c2-66ed-418d-ac4a-86df53dd06dc" width="80">](https://libreflix.org)<br><br>
 [<img src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/87ec00b4-772a-46ae-88ea-f19d6d486b5d" width="80">](https://cesar.school/)<br><br>
