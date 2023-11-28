@@ -1,6 +1,6 @@
 # LibreSenses
 [Prototype](https://libresenses-service-ibu7uv3kqq-rj.a.run.app/)
-## Introduction
+## Intro
 LibreSenses is a Django web application developed as part of the 'Projects 3' course at [Cesar School](https://cesar.school/). This project enhances the Libreflix platform, a peer-to-peer streaming service focused on free streaming of movies. LibreSenses aligns with the ethos of free culture and software, embodying the principles of [Libreflix](https://libreflix.org).
 
 The core functionality of LibreSenses centers around accessible content submission, specifically designed to meet the diverse requirements of viewers, including those with disabilities.
@@ -26,7 +26,6 @@ For more information, visit the [LibreSenses Project Site](https://sites.google.
 - [Diagrams](#diagrams)
 - [Tools](#tools)
 - [Team](#team)
-- [Credits](#credits)
 
 ## Installation
 
@@ -117,6 +116,37 @@ To run the project locally:
 
 
 ## Usage
+### Submit film
+To submit a film, navigate to the 'Enviar um filme'(Submit Film) section. Fill out the film submission form with the required details including title, description, and upload options.
+<br><img width="547" alt="New film form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/5b735e12-c37f-41b1-8269-6b4f5fe93440">
+### Film profile
+View and manage film profiles by selecting a film from the list. Here you can review detailed information and access editing options.
+<br><img width="497" alt="film profile form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/2f5269db-718b-4536-b5ee-1bf926519257">
+#### Accessibility profile
+View the accessibility features that have been added to your film. 
+<br><img width="492" alt="film profile form accesibility details" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/a9432bf6-1c68-4c10-ae00-428b5985fa51">
+#### Delete film entry
+To remove a film, simply use the 'Remover Conteúdo Audiovisual' (Delete) button option available in the film's profile.
+<br><img width="161" alt="remove button form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/aade7aa4-4188-4640-924e-1dde6236c6bb">
+### Edit film informations
+Update film details through the 'Editar'(Edit) option in the film profile. Make sure to save changes after editing.
+<br><img width="494" alt="edit film info form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/b3828082-166e-44c2-9818-8d344461cf11">
+
+### Add accessibility
+Enhance the accessibility of your films by adding various features. Each type of accessibility feature can be easily added through dedicated forms.
+#### Captions
+Add captions to your film to make it accessible for the deaf or hard of hearing audience. 
+<br><img width="495" alt="caption form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/3a418329-cf49-4853-b24f-9cf860bf90e3"><br>
+#### Audiodescription
+Provide an audiodescription to describe visual elements for visually impaired viewers. 
+<br><img width="497" alt="audio description form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/2d966860-7f46-497a-a855-2e85a52abd2b"><br>
+#### Sign language
+Incorporate sign language interpretation into your film.
+<br><img width="497" alt="sign language form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/cdd46925-d7ba-4e7e-ae3f-8a81906993d5">
+#### Media Alternative
+Offer alternative media options for enhanced accessibility. This could include different formats like Braille or simplified text versions.
+<br><img width="493" alt="media alternative form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/84ff3dcf-fcf5-45a9-935c-05a46924cc58">
+
 
 ## Development Process
 
@@ -211,5 +241,17 @@ Together with Bootstrap, `custom.css` is used for additional styling for customi
 
 
 ## Team
+
+Gabriela Lyra
+Marília Pacífico
+Raul Correia
+Yanne Lopes
+Camila Cirne
+Lucas Lucena
+Lucas Dias
+Pedro Coelho
+Rafael Menezes
+Matheus Lazzarotto
+
 
 
