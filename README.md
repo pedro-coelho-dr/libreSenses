@@ -131,7 +131,6 @@ To remove a film, simply use the 'Remover Conteúdo Audiovisual' (Delete) button
 ### Edit film informations
 Update film details through the 'Editar'(Edit) option in the film profile. Make sure to save changes after editing.
 <br><img width="494" alt="edit film info form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/b3828082-166e-44c2-9818-8d344461cf11">
-
 ### Add accessibility
 Enhance the accessibility of your films by adding various features. Each type of accessibility feature can be easily added through dedicated forms.
 #### Captions
@@ -166,6 +165,7 @@ Models handle relationships between different data entities effectively. For exa
 #### Validations
 The models also handle data validation. Methods like `validate_file_size` and validators like `FileExtensionValidator` and `MinValueValidator` are the last layer of validation to ensure data integrity.
 
+---
 
 ### Implementing Views
 
@@ -188,6 +188,7 @@ Class-based views abstract the complexity of operations. Methods like `get` or `
 #### Modularity
 Using class-based views also promotes a modular code structure, facilitating the development and testing of each component.
 
+---
 
 ### Designing Forms
 
@@ -204,6 +205,8 @@ The forms have two layers of validation. The first layer comes from Django's bui
 
 #### Crispy Forms
 Crispy Forms is used for layouts and styling, and may be integrated with Bootstrap. It allows for establishing layouts declaratively. For example, in `FilmForm`, the FormHelper and layout objects define how the form should be rendered, making it easy to manage form presentation.
+
+---
 
 ### Front-end Development
 
