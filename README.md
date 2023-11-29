@@ -223,7 +223,8 @@ Together with Bootstrap, `custom.css` is used for additional styling for customi
 
 ## Diagrams
 
-![libresenses_models](https://github.com/pedro-coelho-dr/libresenses/assets/111138996/14a715b2-6b35-4baa-8d4e-7374a87deba1)
+![diagrama](https://github.com/pedro-coelho-dr/libresenses/assets/111138996/ad792ecc-4fe9-4143-8925-45f9980aac74)<br>
+![libresenses_models](https://github.com/pedro-coelho-dr/libresenses/assets/111138996/14a715b2-6b35-4baa-8d4e-7374a87deba1)<br>
 
 ## Tools
 
