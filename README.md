@@ -121,8 +121,9 @@ To submit a film, navigate to the 'Enviar um filme'(Submit Film) section. Fill o
 <br><img width="547" alt="New film form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/5b735e12-c37f-41b1-8269-6b4f5fe93440">
 ### Film profile
 View and manage film profiles by selecting a film from the list. Here you can review detailed information and access editing options.
-<br><img width="497" alt="film profile form" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/2f5269db-718b-4536-b5ee-1bf926519257">
+<br><img width="496" alt="Screenshot 2023-11-29 175352" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/e9e2f08b-0293-4ab3-8973-00b9f3a90ba5">
 #### Accessibility profile
+
 View the accessibility features that have been added to your film. 
 <br><img width="492" alt="film profile form accesibility details" src="https://github.com/pedro-coelho-dr/libresenses/assets/111138996/a9432bf6-1c68-4c10-ae00-428b5985fa51">
 #### Delete film entry
