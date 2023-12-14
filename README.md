@@ -1,5 +1,4 @@
 # LibreSenses
-[Prototype](https://libresenses-service-ibu7uv3kqq-rj.a.run.app/)
 ## Intro
 LibreSenses is a Django web application developed as part of the 'Projects 3' course at [Cesar School](https://cesar.school/). This project enhances the Libreflix platform, a peer-to-peer streaming service focused on free streaming of movies. LibreSenses aligns with the ethos of free culture and software, embodying the principles of [Libreflix](https://libreflix.org).
 
@@ -15,7 +14,7 @@ The application provides a user-friendly interface for submitting and managing f
 
 LibreSenses is a commitment to digital inclusivity and the spirit of free and open-source software and culture.
 
-Explore the LibreSenses [Prototype](https://libresenses-service-ibu7uv3kqq-rj.a.run.app/).
+Explore the LibreSenses Prototype (disabled)
 
 For more information, visit the [LibreSenses Project Site](https://sites.google.com/cesar.school/libresenses/).
 
